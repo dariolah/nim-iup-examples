@@ -1,6 +1,6 @@
-# Nim GUI examples using UIP
+# Nim GUI examples using IUP
 
-Rewrite of UIP examples in Nim.
+Rewrite of IUP examples in Nim.
 
 For code explanation and more information visit <https://www.tecgraf.puc-rio.br/iup/>
 
