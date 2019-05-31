@@ -1,6 +1,7 @@
 # Nim GUI examples using IUP
 
-Rewrite of IUP examples in Nim.
+Rewrite of IUP examples in Nim. Code uses package 'niup' which contains
+generated FFI bindings for latest IUP.
 
 For code explanation and more information visit <https://www.tecgraf.puc-rio.br/iup/>
 

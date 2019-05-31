@@ -1,51 +1,53 @@
 # https://www.tecgraf.puc-rio.br/iup/en/tutorial/tutorial3.html
 # https://www.tecgraf.puc-rio.br/iup/examples/tutorial/example3_2.c
 
-import iup
+import niup
 
 proc exit_cb(ih:PIhandle):cint {.cdecl.}=
-  return iup.IUP_CLOSE
+  return niup.IUP_CLOSE
 
 proc mainProc =
-  var dlg, multitext, vbox: iup.PIhandle
-  var file_menu, item_exit, item_open, item_saveas: iup.PIhandle
-  var sub1_menu, menu: iup.PIhandle
+  var dlg, multitext, vbox: niup.PIhandle
+  var file_menu, item_exit, item_open, item_saveas: niup.PIhandle
+  var sub1_menu, menu: niup.PIhandle
 
-  discard iup.open(nil, nil)
+  var argc:cint=0
+  var argv:cstringArray=nil
+  discard niup.Open(argc, addr argv)
 
-  multitext =  iup.text(nil)
-  iup.setAttribute(multitext, "MULTILINE", "YES")
-  iup.setAttribute(multitext, "EXPAND", "YES")
+  multitext =  niup.Text(nil)
+  niup.SetAttribute(multitext, "MULTILINE", "YES")
+  niup.SetAttribute(multitext, "EXPAND", "YES")
 
-  item_open = iup.item("Open", nil)
-  item_saveas = iup.item("Save As", nil)
-  item_exit = iup.item("Exit", nil)
-  discard iup.setCallback(item_exit, "ACTION", cast[ICallback](exit_cb))
+  item_open = niup.Item("Open", nil)
+  item_saveas = niup.Item("Save As", nil)
+  item_exit = niup.Item("Exit", nil)
+  discard niup.SetCallback(item_exit, "ACTION", cast[ICallback](exit_cb))
 
-  file_menu = iup.menu(item_open,
+  file_menu = niup.Menu(item_open,
                        item_saveas,
-                       iup.separator(),
+                       niup.Separator(),
                        item_exit,
                        nil)
 
-  sub1_menu = iup.submenu("File", file_menu)
+  sub1_menu = niup.Submenu("File", file_menu)
 
-  menu = iup.menu(sub1_menu, nil)
+  menu = niup.Menu(sub1_menu, nil)
 
-  vbox = iup.vbox(multitext,
+  vbox = niup.Vbox(multitext,
                   nil)
 
-  dlg = iup.dialog(vbox)
-  iup.setAttributeHandle(dlg, "MENU", menu)
-  iup.setAttribute(dlg, "TITLE", "Simple Notepad")
-  iup.setAttribute(dlg, "SIZE", "QUARTERxQUARTER");
+  dlg = niup.Dialog(vbox)
+  niup.SetAttributeHandle(dlg, "MENU", menu)
+  niup.SetAttribute(dlg, "TITLE", "Simple Notepad")
+  niup.SetAttribute(dlg, "SIZE", "QUARTERxQUARTER");
 
-  iup.showXY(dlg, iup.IUP_CENTER, iup.IUP_CENTER)
-  iup.setAttribute(dlg, "USERSIZE", nil);
+  discard niup.ShowXY(dlg, niup.IUP_CENTER, niup.IUP_CENTER)
+  niup.SetAttribute(dlg, "USERSIZE", nil);
 
-  iup.mainLoop()
+  discard niup.MainLoop()
 
-  iup.close()
+  niup.Close()
 
 if isMainModule:
   mainProc()

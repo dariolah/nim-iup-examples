@@ -1,37 +1,39 @@
 # https://www.tecgraf.puc-rio.br/iup/en/tutorial/tutorial2.html
 # https://www.tecgraf.puc-rio.br/iup/examples/tutorial/example2_5.c
 
-import iup
+import niup
 
 proc btn_exit_cb(ih:PIhandle):cint {.cdecl.}=
   # Exits the main loop
-  return iup.IUP_CLOSE
+  return niup.IUP_CLOSE
 
 proc mainProc =
-  var dlg, button, label, vbox: iup.PIhandle
+  var dlg, button, label, vbox: niup.PIhandle
 
-  discard iup.open(nil, nil)
+  var argc:cint=0
+  var argv:cstringArray=nil
+  discard niup.Open(argc, addr argv)
 
-  label =  iup.label("Hello world from IUP.");
-  button = iup.button("OK", nil)
-  vbox = iup.vbox(label,
+  label =  niup.Label("Hello world from IUP.");
+  button = niup.Button("OK", nil)
+  vbox = niup.Vbox(label,
                   button,
                   nil)
-  iup.setAttribute(vbox, "ALIGNMENT", "ACENTER");
-  iup.setAttribute(vbox, "GAP", "10");
-  iup.setAttribute(vbox, "MARGIN", "10x10");
+  niup.SetAttribute(vbox, "ALIGNMENT", "ACENTER");
+  niup.SetAttribute(vbox, "GAP", "10");
+  niup.SetAttribute(vbox, "MARGIN", "10x10");
 
-  dlg = iup.dialog(vbox)
-  iup.setAttribute(dlg, "TITLE", "Hello World 5")
+  dlg = niup.Dialog(vbox)
+  niup.SetAttribute(dlg, "TITLE", "Hello World 5")
 
   # Registers callbacks
-  discard iup.setCallback(button, "ACTION", cast[ICallback](btn_exit_cb))
+  discard niup.SetCallback(button, "ACTION", cast[ICallback](btn_exit_cb))
 
-  iup.showXY(dlg, iup.IUP_CENTER, iup.IUP_CENTER)
+  discard niup.ShowXY(dlg, niup.IUP_CENTER, niup.IUP_CENTER)
 
-  iup.mainLoop()
+  discard niup.MainLoop()
 
-  iup.close()
+  niup.Close()
 
 if isMainModule:
   mainProc()

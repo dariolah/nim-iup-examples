@@ -1,29 +1,31 @@
 # https://www.tecgraf.puc-rio.br/iup/en/tutorial/tutorial3.html
 # https://www.tecgraf.puc-rio.br/iup/examples/tutorial/example3_1.c
 
-import iup
+import niup
 
 proc mainProc =
-  var dlg, multitext, vbox: iup.PIhandle
+  var dlg, multitext, vbox: niup.PIhandle
 
-  discard iup.open(nil, nil)
+  var argc:cint=0
+  var argv:cstringArray=nil
+  discard niup.Open(argc, addr argv)
 
-  multitext =  iup.text(nil);
-  vbox = iup.vbox(multitext,
+  multitext =  niup.Text(nil);
+  vbox = niup.Vbox(multitext,
                   nil)
-  iup.setAttribute(multitext, "MULTILINE", "YES")
-  iup.setAttribute(multitext, "EXPAND", "YES")
+  niup.SetAttribute(multitext, "MULTILINE", "YES")
+  niup.SetAttribute(multitext, "EXPAND", "YES")
 
-  dlg = iup.dialog(vbox)
-  iup.setAttribute(dlg, "TITLE", "Simple Notepad")
-  iup.setAttribute(dlg, "SIZE", "QUARTERxQUARTER");
+  dlg = niup.Dialog(vbox)
+  niup.SetAttribute(dlg, "TITLE", "Simple Notepad")
+  niup.SetAttribute(dlg, "SIZE", "QUARTERxQUARTER");
 
-  iup.showXY(dlg, iup.IUP_CENTER, iup.IUP_CENTER)
-  iup.setAttribute(dlg, "USERSIZE", nil);
+  discard niup.ShowXY(dlg, niup.IUP_CENTER, niup.IUP_CENTER)
+  niup.SetAttribute(dlg, "USERSIZE", nil);
 
-  iup.mainLoop()
+  discard niup.MainLoop()
 
-  iup.close()
+  niup.Close()
 
 if isMainModule:
   mainProc()
