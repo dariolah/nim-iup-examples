@@ -19,7 +19,7 @@ EXAMPLES=\
 
 TARGETS=$(EXAMPLES:.nim=)
 
-all: $(EXAMPLES:.nim=)
+all: $(TARGETS)
 
 %: %.nim
 	nim c --out:../build-nim-iup-examples-nim-Debug/$@ --nimCache:../build-nim-iup-examples-nim-Debug/nimcache $^
