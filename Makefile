@@ -15,7 +15,8 @@ EXAMPLES=\
 	example3_7.nim \
 	example3_8.nim \
 	example3_9.nim \
-	simple_notepad.nim 
+        simple_notepad.nim \
+        scintilla_notepad.nim
 
 TARGETS=$(EXAMPLES:.nim=)
 
