@@ -1374,6 +1374,9 @@ proc create_main_dialog(config:PIhandle):PIhandle =
   niup.SetAttribute(multitext, "EXPAND", "YES")
   niup.SetAttribute(multitext, "NAME", "MULTITEXT")
   niup.SetAttribute(multitext, "DIRTY", "NO")
+
+  #enable UTF-8 for GTK and Windows
+  niup.SetGlobal("UTF8MODE", "YES")
   discard niup.SetCallback(multitext, "CARET_CB", cast[ICallback](multitext_caret_cb))
   discard niup.SetCallback(multitext, "VALUECHANGED_CB", cast[ICallback](multitext_valuechanged_cb))
   discard niup.SetCallback(multitext, "DROPFILES_CB", cast[ICallback](dropfiles_cb))
