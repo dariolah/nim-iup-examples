@@ -16,14 +16,15 @@ EXAMPLES=\
 	example3_8.nim \
 	example3_9.nim \
         simple_notepad.nim \
-        scintilla_notepad.nim
+        scintilla_notepad.nim \
+	example4_1.nim
 
 TARGETS=$(EXAMPLES:.nim=)
 
 all: $(TARGETS)
 
 %: %.nim
-	nim c --out:../build-nim-iup-examples-nim-Debug/$@ --nimCache:../build-nim-iup-examples-nim-Debug/nimcache $^
+	nim c -d:nimDebugDlOpen --out:../build-nim-iup-examples-nim-Debug/$@ --nimCache:../build-nim-iup-examples-nim-Debug/nimcache $^
 
 clean:
 	rm -rf ../build-nim-iup-examples-nim-Debug/
