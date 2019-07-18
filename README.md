@@ -30,4 +30,5 @@ For code explanation and more information visit <https://www.tecgraf.puc-rio.br/
 - SimplePaint
   - example4_1 : Loading and Saving Images
   - example4_2 : Drawing with OpenGL
-  - example4.3 : Drawing with CD and Printing
+  - example4_3 : Drawing with CD and Printing
+  - example4_4 : Interactive Zoom and Scrollbars
