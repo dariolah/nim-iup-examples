@@ -127,7 +127,7 @@ proc scroll_update(ih:PIhandle, view_width:int, view_height:int) =
   SetFloat(ih, "DX", canvas_width.float / view_width.float)
   SetFloat(ih, "DY", canvas_height.float / view_height.float)
 
-proc scroll_calc_center(ih:PIhandle, x,y:var cfloat) =
+proc scroll_calc_center(ih:PIhandle, x,y:var float) =
   x = GetFloat(ih, "POSX") + GetFloat(ih, "DX") / 2.0f
   y = GetFloat(ih, "POSY") + GetFloat(ih, "DY") / 2.0f
 
@@ -157,7 +157,7 @@ proc scroll_center(ih:PIhandle, old_center_x:float, old_center_y:float) =
   SetFloat(ih, "POSX", posx)
   SetFloat(ih, "POSY", posy)
 
-proc zoom_update(ih:PIhandle, zoom_index:cdouble) =
+proc zoom_update(ih:PIhandle, zoom_index:float) =
   let
     zoom_lbl = GetDialogChild(ih, "ZOOMLABEL")
     canvas = GetDialogChild(ih, "CANVAS")
@@ -166,7 +166,7 @@ proc zoom_update(ih:PIhandle, zoom_index:cdouble) =
 
   SetStrf(zoom_lbl, "TITLE", "%.0f%%", floor(zoom_factor * 100))
   if image != nil:
-    var old_center_x, old_center_y:cfloat
+    var old_center_x, old_center_y:float
     let
       view_width = (zoom_factor * image.width.float).int
       view_height = (zoom_factor * image.height.float).int
@@ -387,7 +387,7 @@ proc canvas_action_cb(canvas:PIhandle):cint =
     if canvas_width < view_width:
       x = cint(floor(-posx*view_width.float))
     else:
-      x = cint((canvas_width - image.width) / 2)
+      x = cint((canvas_width - view_width) / 2)
 
     if canvas_height < view_height:
       # posy is top-bottom, CD is bottom-top.
@@ -396,7 +396,7 @@ proc canvas_action_cb(canvas:PIhandle):cint =
       posy = 1.0f - dy - posy
       y = cint(floor(-posy*view_height.float))
     else:
-      y = cint((canvas_height - image.height) / 2)
+      y = cint((canvas_height - view_height) / 2)
 
     # black line around the image
     discard cdCanvasForeground(cd_canvas, CD_BLACK)
@@ -453,7 +453,7 @@ proc canvas_resize_cb(canvas:PIhandle):int =
       zoom_index = GetDouble(zoom_val, "VALUE")
       zoom_factor = pow(2, zoom_index)
     var
-      old_center_x, old_center_y:cfloat
+      old_center_x, old_center_y:float
 
     let
       view_width = (zoom_factor * image.width.float).cint
@@ -757,13 +757,11 @@ proc create_main_dialog(config:PIhandle):PIhandle =
   canvas = Canvas(nil)
   SetAttribute(canvas, "NAME", "CANVAS")
   SetAttribute(canvas, "SCROLLBAR", "YES")
-  SetAttribute(canvas, "DIRTY", "NO")
-  SetAttribute(canvas, "BUFFER", "DOUBLE")
+  SetAttribute(canvas, "DIRTY", "NO") # custom attribute
   discard SetCallback(canvas, "ACTION", cast[Icallback](canvas_action_cb))
-  discard SetCallback(canvas, "ACTION", cast[Icallback](canvas_action_cb))
+  discard SetCallback(canvas, "DROPFILES_CB", cast[Icallback](dropfiles_cb))
   discard SetCallback(canvas, "MAP_CB", cast[Icallback](canvas_map_cb))
   discard SetCallback(canvas, "UNMAP_CB", cast[Icallback](canvas_unmap_cb))
-
   discard SetCallback(canvas, "WHEEL_CB", cast[Icallback](canvas_wheel_cb))
   discard SetCallback(canvas, "RESIZE_CB", cast[Icallback](canvas_resize_cb))
 
