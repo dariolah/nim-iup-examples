@@ -322,7 +322,7 @@ proc select_file(parent_dlg:PIhandle, is_open:bool):int =
     SetAttribute(filedlg, "DIALOGTYPE", "SAVE")
     SetStrAttribute(filedlg, "FILE", GetAttribute(canvas, "FILENAME"))
 
-  SetAttribute(filedlg, "EXTFILTER", "Image Files|*.bmp*.jpg*.png*.tif*.tga|All Files|*.*|")
+  SetAttribute(filedlg, "EXTFILTER", "Image Files|*.bmp;*.jpg;*.png;*.tif;*.tga|All Files|*.*|")
   SetStrAttribute(filedlg, "DIRECTORY", dir)
   SetAttributeHandle(filedlg, "PARENTDIALOG", parent_dlg)
 
