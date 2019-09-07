@@ -22,10 +22,10 @@ proc toggleMarker(ih:PIhandle, lin:cint, margin:cint) =
   else:
     niup.SetIntId(ih, "MARKERADD", lin, margin - 1)
 
-proc setMarkerMask(markNumber:cint):clong =
+proc setMarkerMask(markNumber:cint):cint =
   let mask = 0x000000
   let mark = 0x00001 shl markNumber
-  return mask or mark
+  return cast[cint](mask or mark)
 
 proc copyMarkedLines(multitext:PIHandle) =
   var
@@ -35,7 +35,7 @@ proc copyMarkedLines(multitext:PIHandle) =
     lin:cint = 0
 
   while lin >= 0:
-    niup.SetIntId(multitext, "MARKERNEXT", lin, cast[cint](setMarkerMask(0)))
+    niup.SetIntId(multitext, "MARKERNEXT", lin, setMarkerMask(0))
     lin = niup.GetInt(multitext, "LASTMARKERFOUND")
     if lin >= 0:
       text = niup.GetAttributeId(multitext, "LINE", lin);
@@ -58,7 +58,7 @@ proc cutMarkedLines(multitext:PIhandle) =
     len:int
 
   while lin >= 0 and size > 0:
-    niup.SetIntId(multitext, "MARKERNEXT", lin, cast[cint](setMarkerMask(0)))
+    niup.SetIntId(multitext, "MARKERNEXT", lin, setMarkerMask(0))
     lin = niup.GetInt(multitext, "LASTMARKERFOUND")
     if lin >= 0:
       text = niup.GetAttributeId(multitext, "LINE", lin)
@@ -83,7 +83,7 @@ proc pasteToMarkedLines(multitext:PIhandle) =
     len:int
 
   while lin >= 0:
-    niup.SetIntId(multitext, "MARKERNEXT", lin, cast[cint](setMarkerMask(0)))
+    niup.SetIntId(multitext, "MARKERNEXT", lin, setMarkerMask(0))
     lin = niup.GetInt(multitext, "LASTMARKERFOUND");
     if lin >= 0:
       text = niup.GetAttributeId(multitext, "LINE", lin)
@@ -108,7 +108,7 @@ proc removeMarkedLines(multitext:PIhandle) =
     len:int
 
   while lin >= 0:
-    niup.SetIntId(multitext, "MARKERNEXT", lin, cast[cint](setMarkerMask(0)))
+    niup.SetIntId(multitext, "MARKERNEXT", lin, setMarkerMask(0))
     lin = niup.GetInt(multitext, "LASTMARKERFOUND")
     if lin >= 0:
       text = niup.GetAttributeId(multitext, "LINE", lin)
@@ -130,7 +130,7 @@ proc removeUnmarkedLines(multitext:PIhandle) =
   while start >= 0:
     text = niup.GetAttributeId(multitext, "LINE", start)
     len = cast[cint](text.len)
-    niup.SetIntId(multitext, "MARKERPREVIOUS", start, cast[cint](setMarkerMask(0)))
+    niup.SetIntId(multitext, "MARKERPREVIOUS", start, setMarkerMask(0))
     finish = niup.GetInt(multitext, "LASTMARKERFOUND")
     niup.TextConvertLinColToPos(multitext, start, len + 1, posEnd)
     if finish >= 0:
@@ -749,7 +749,7 @@ proc item_nextmark_action_cb(ih:PIhandle):int =
 
   niup.TextConvertPosToLinCol(multitext, pos, lin, col)
 
-  niup.SetIntId(multitext, "MARKERNEXT", cast[cint](lin + 1), cast[cint](setMarkerMask(0)))
+  niup.SetIntId(multitext, "MARKERNEXT", cast[cint](lin + 1), setMarkerMask(0))
 
   lin = niup.GetInt(multitext, "LASTMARKERFOUND")
 
@@ -771,7 +771,7 @@ proc item_previousmark_action_cb(ih:PIhandle):int =
 
   niup.TextConvertPosToLinCol(multitext, pos, lin, col)
 
-  niup.SetIntId(multitext, "MARKERPREVIOUS", cast[cint](lin - 1), cast[cint](setMarkerMask(0)))
+  niup.SetIntId(multitext, "MARKERPREVIOUS", cast[cint](lin - 1), setMarkerMask(0))
 
   lin = niup.GetInt(multitext, "LASTMARKERFOUND")
 

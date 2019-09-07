@@ -25,7 +25,8 @@ TARGETS=$(EXAMPLES:.nim=)
 all: $(TARGETS)
 
 %: %.nim
-	nim c -d:nimDebugDlOpen --out:../build-nim-iup-examples-nim-Debug/$@ --nimCache:../build-nim-iup-examples-nim-Debug/nimcache $^
+	nim c --out:../build-nim-iup-examples-nim-Debug/$@ --nimCache:../build-nim-iup-examples-nim-Debug/nimcache $^
+	nim c --cpu:amd64 --os:windows --gcc.exe:x86_64-w64-mingw32-gcc --gcc.linkerexe:x86_64-w64-mingw32-gcc --out:../build-nim-iup-examples-nim-Debug/$@.exe --nimCache:../build-nim-iup-examples-nim-Debug/nimcache $^
 
 clean:
 	rm -rf ../build-nim-iup-examples-nim-Debug/
