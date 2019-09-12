@@ -25,7 +25,7 @@ For code explanation and more information visit <https://www.tecgraf.puc-rio.br/
   - example3_10.nim : Dynamic Layout
   - example3_11.nim : External Help
   - simple_notepad.nim : Final Considerations
-[![simple notepad](https://raw.githubusercontent.com/dariolah/nim-iup-examples/master/screenshots/simple-notepad.png)](#simple-notepad)
+[![simple notepad](https://raw.githubusercontent.com/dariolah/nim-iup-examples/master/screenshots/simple_notepad.png)](#simple-notepad)
   - scintilla_notepad.nim : Version with IupScintilla instead of IupText
 [![scintilla notepad](https://raw.githubusercontent.com/dariolah/nim-iup-examples/master/screenshots/scintilla_notepad.png)](#scintilla-notepad)
 
