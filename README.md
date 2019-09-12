@@ -26,6 +26,7 @@ For code explanation and more information visit <https://www.tecgraf.puc-rio.br/
   - example3_11.nim : External Help
   - simple_notepad.nim : Final Considerations
   - scintilla_notepad.nim : Version with IupScintilla instead of IupText
+[![scintilla notepad](https://raw.githubusercontent.com/dariolah/nim-iup-examples/master/screenshots/scintilla_notepad.png)](#scintilla-notepad)
 
 - SimplePaint
   - example4_1 : Loading and Saving Images
