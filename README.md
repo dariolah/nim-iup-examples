@@ -34,3 +34,13 @@ For code explanation and more information visit <https://www.tecgraf.puc-rio.br/
   - example4_2 : Drawing with OpenGL
   - example4_3 : Drawing with CD and Printing
   - example4_4 : Interactive Zoom and Scrollbars
+
+- samples
+  - list1: simple list, multiple list with callback and a drop-down list
+[![list1](https://raw.githubusercontent.com/dariolah/nim-iup-examples/master/screenshots/list1.png)](#list1)
+  - list2: three frames with simple list, multiple list with callback and a drop-down list
+[![list2](https://raw.githubusercontent.com/dariolah/nim-iup-examples/master/screenshots/list2.png)](#list2)
+  - list3
+[![list3](https://raw.githubusercontent.com/dariolah/nim-iup-examples/master/screenshots/list3.png)](#list3)
+  - matrixlist
+[![matrixlist](https://raw.githubusercontent.com/dariolah/nim-iup-examples/master/screenshots/matrixlist.png)](#matrixlist)
