@@ -52,7 +52,7 @@ proc show_error(message:string, is_error:int) =
     SetStrAttribute(dlg, "TITLE", "Error")
   SetAttribute(dlg, "BUTTONS", "OK")
   SetStrAttribute(dlg, "VALUE", message)
-  discard Popup(dlg, IUP_CENTERPARENT, IUP_CENTERPARENT)
+  Popup(dlg, IUP_CENTERPARENT, IUP_CENTERPARENT)
   Destroy(dlg)
 
 proc show_file_error(error:imErrorCodes) =
@@ -83,7 +83,7 @@ proc read_file(filename:string):ptr imImage =
     imImageRemoveAlpha(image)
     if image.color_space != IM_RGB:
       var new_image = imImageCreateBased(image, -1, -1, IM_RGB, cast[imDataType](-1))
-      discard imConvertColorSpace(image, new_image)
+      imConvertColorSpace(image, new_image)
       imImageDestroy(image)
       image = new_image
 
@@ -221,13 +221,13 @@ proc canvas_action_cb(canvas:PIhandle):cint =
     background = ConfigGetVariableStrDef(config, "Canvas", "Background", "255 255 255")
     cd_canvas = cast[ptr cdCanvas](GetAttribute(canvas, "cdCanvas"))
 
-  discard GetIntInt(canvas, "DRAWSIZE", canvas_width, canvas_height)
+  GetIntInt(canvas, "DRAWSIZE", canvas_width, canvas_height)
 
-  discard cdCanvasActivate(cd_canvas)
+  cdCanvasActivate(cd_canvas)
 
   # draw the background
   discard scanf($background, "$i $i $i", ri, gi, bi)
-  discard cdCanvasBackground(cd_canvas, cdEncodeColor(ri.cuchar, gi.cuchar, bi.cuchar))
+  cdCanvasBackground(cd_canvas, cdEncodeColor(ri.cuchar, gi.cuchar, bi.cuchar))
   cdCanvasClear(cd_canvas)
 
   # draw the image at the center of the canvas
@@ -333,7 +333,7 @@ proc select_file(parent_dlg:PIhandle, is_open:cint):cint =
   SetStrAttribute(filedlg, "DIRECTORY", dir)
   SetAttributeHandle(filedlg, "PARENTDIALOG", parent_dlg)
 
-  discard Popup(filedlg, IUP_CENTERPARENT, IUP_CENTERPARENT)
+  Popup(filedlg, IUP_CENTERPARENT, IUP_CENTERPARENT)
   if GetInt(filedlg, "STATUS") != -1:
     let filename = GetAttribute(filedlg, "VALUE")
     if is_open != 0:
@@ -416,7 +416,7 @@ proc item_print_action_cb(item_print:PIhandle):cint =
 
   # draw the background
   discard scanf($background, "$i $i $i", ri, gi, bi)
-  discard cdCanvasBackground(cd_canvas, cdEncodeColor(ri.cuchar, gi.cuchar, bi.cuchar))
+  cdCanvasBackground(cd_canvas, cdEncodeColor(ri.cuchar, gi.cuchar, bi.cuchar))
   cdCanvasClear(cd_canvas)
 
   # draw the image at the center of the canvas
@@ -463,7 +463,7 @@ proc item_exit_action_cb(item_exit:PIhandle):cint =
     imImageDestroy(image)
 
   ConfigDialogClosed(config, dlg, "MainWindow")
-  discard ConfigSave(config)
+  ConfigSave(config)
   Destroy(config)
   return IUP_CLOSE
 
@@ -495,7 +495,7 @@ proc item_paste_action_cb(item_paste:PIhandle):cint =
     imImageRemoveAlpha(image)
     if image.color_space != IM_RGB:
       var new_image = imImageCreateBased(image, -1, -1, IM_RGB, cast[imDataType](-1))
-      discard imConvertColorSpace(image, new_image)
+      imConvertColorSpace(image, new_image)
       imImageDestroy(image)
       image = new_image
 
@@ -524,7 +524,7 @@ proc item_background_action_cb(item_background:PIhandle):cint =
   SetStrAttribute(colordlg, "VALUE", background)
   SetAttributeHandle(colordlg, "PARENTDIALOG", GetDialog(item_background))
 
-  discard Popup(colordlg, IUP_CENTERPARENT, IUP_CENTERPARENT)
+  Popup(colordlg, IUP_CENTERPARENT, IUP_CENTERPARENT)
 
   if GetInt(colordlg, "STATUS") == 1:
     background = GetAttribute(colordlg, "VALUE")
@@ -558,7 +558,7 @@ proc item_statusbar_action_cb(item_statusbar:PIhandle):cint =
   return IUP_DEFAULT
 
 proc item_help_action_cb():cint =
-  discard Help("http://www.tecgraf.puc-rio.br/")
+  Help("http://www.tecgraf.puc-rio.br/")
   return IUP_DEFAULT
 
 proc item_about_action_cb():cint =
@@ -581,10 +581,10 @@ proc create_main_dialog(config:PIhandle):PIhandle =
   SetAttribute(canvas, "NAME", "CANVAS")
   SetAttribute(canvas, "DIRTY", "NO")
   SetAttribute(canvas, "BUFFER", "DOUBLE")
-  discard SetCallback(canvas, "ACTION", cast[Icallback](canvas_action_cb))
-  discard SetCallback(canvas, "ACTION", cast[Icallback](canvas_action_cb))
-  discard SetCallback(canvas, "MAP_CB", cast[Icallback](canvas_map_cb))
-  discard SetCallback(canvas, "UNMAP_CB", cast[Icallback](canvas_unmap_cb))
+  SetCallback(canvas, "ACTION", cast[Icallback](canvas_action_cb))
+  SetCallback(canvas, "ACTION", cast[Icallback](canvas_action_cb))
+  SetCallback(canvas, "MAP_CB", cast[Icallback](canvas_map_cb))
+  SetCallback(canvas, "UNMAP_CB", cast[Icallback](canvas_unmap_cb))
 
   statusbar = Label("(0, 0) = [0   0   0]")
   SetAttribute(statusbar, "NAME", "STATUSBAR")
@@ -593,90 +593,90 @@ proc create_main_dialog(config:PIhandle):PIhandle =
 
   item_new = Item("&New\tCtrl+N", nil)
   SetAttribute(item_new, "IMAGE", "IUP_FileNew")
-  discard SetCallback(item_new, "ACTION", cast[Icallback](item_new_action_cb))
+  SetCallback(item_new, "ACTION", cast[Icallback](item_new_action_cb))
   btn_new = Button(nil, nil)
   SetAttribute(btn_new, "IMAGE", "IUP_FileNew")
   SetAttribute(btn_new, "FLAT", "Yes")
-  discard SetCallback(btn_new, "ACTION", cast[Icallback](item_new_action_cb))
+  SetCallback(btn_new, "ACTION", cast[Icallback](item_new_action_cb))
   SetAttribute(btn_new, "TIP", "New (Ctrl+N)")
   SetAttribute(btn_new, "CANFOCUS", "No")
 
   item_open = Item("&Open...\tCtrl+O", nil)
   SetAttribute(item_open, "IMAGE", "IUP_FileOpen")
-  discard SetCallback(item_open, "ACTION", cast[Icallback](item_open_action_cb))
+  SetCallback(item_open, "ACTION", cast[Icallback](item_open_action_cb))
   btn_open = Button(nil, nil)
   SetAttribute(btn_open, "IMAGE", "IUP_FileOpen")
   SetAttribute(btn_open, "FLAT", "Yes")
-  discard SetCallback(btn_open, "ACTION", cast[Icallback](item_open_action_cb))
+  SetCallback(btn_open, "ACTION", cast[Icallback](item_open_action_cb))
   SetAttribute(btn_open, "TIP", "Open (Ctrl+O)")
   SetAttribute(btn_open, "CANFOCUS", "No")
 
   item_save = Item("&Save\tCtrl+S", nil)
   SetAttribute(item_save, "NAME", "ITEM_SAVE")
   SetAttribute(item_save, "IMAGE", "IUP_FileSave")
-  discard SetCallback(item_save, "ACTION", cast[Icallback](item_save_action_cb))
+  SetCallback(item_save, "ACTION", cast[Icallback](item_save_action_cb))
   btn_save = Button(nil, nil)
   SetAttribute(btn_save, "IMAGE", "IUP_FileSave")
   SetAttribute(btn_save, "FLAT", "Yes")
-  discard SetCallback(btn_save, "ACTION", cast[Icallback](item_save_action_cb))
+  SetCallback(btn_save, "ACTION", cast[Icallback](item_save_action_cb))
   SetAttribute(btn_save, "TIP", "Save (Ctrl+S)")
   SetAttribute(btn_save, "CANFOCUS", "No")
 
   item_saveas = Item("Save &As...", nil)
   SetAttribute(item_saveas, "NAME", "ITEM_SAVEAS")
-  discard SetCallback(item_saveas, "ACTION", cast[Icallback](item_saveas_action_cb))
+  SetCallback(item_saveas, "ACTION", cast[Icallback](item_saveas_action_cb))
 
   item_revert = Item("&Revert", nil)
   SetAttribute(item_revert, "NAME", "ITEM_REVERT")
-  discard SetCallback(item_revert, "ACTION", cast[Icallback](item_revert_action_cb))
+  SetCallback(item_revert, "ACTION", cast[Icallback](item_revert_action_cb))
 
   item_pagesetup = Item("Page Set&up...", nil)
-  discard SetCallback(item_pagesetup, "ACTION", cast[Icallback](item_pagesetup_action_cb))
+  SetCallback(item_pagesetup, "ACTION", cast[Icallback](item_pagesetup_action_cb))
 
   item_print = Item("&Print...\tCtrl+P", nil)
-  discard SetCallback(item_print, "ACTION", cast[Icallback](item_print_action_cb))
+  SetCallback(item_print, "ACTION", cast[Icallback](item_print_action_cb))
 
   item_exit = Item("E&xit", nil)
-  discard SetCallback(item_exit, "ACTION", cast[Icallback](item_exit_action_cb))
+  SetCallback(item_exit, "ACTION", cast[Icallback](item_exit_action_cb))
 
   item_copy = Item("&Copy\tCtrl+C", nil)
   SetAttribute(item_copy, "NAME", "ITEM_COPY")
   SetAttribute(item_copy, "IMAGE", "IUP_EditCopy")
-  discard SetCallback(item_copy, "ACTION", cast[Icallback](item_copy_action_cb))
+  SetCallback(item_copy, "ACTION", cast[Icallback](item_copy_action_cb))
   btn_copy = Button(nil, nil)
   SetAttribute(btn_copy, "IMAGE", "IUP_EditCopy")
   SetAttribute(btn_copy, "FLAT", "Yes")
-  discard SetCallback(btn_copy, "ACTION", cast[Icallback](item_copy_action_cb))
+  SetCallback(btn_copy, "ACTION", cast[Icallback](item_copy_action_cb))
   SetAttribute(btn_copy, "TIP", "Copy (Ctrl+C)")
   SetAttribute(btn_copy, "CANFOCUS", "No")
 
   item_paste = Item("&Paste\tCtrl+V", nil)
   SetAttribute(item_paste, "NAME", "ITEM_PASTE")
   SetAttribute(item_paste, "IMAGE", "IUP_EditPaste")
-  discard SetCallback(item_paste, "ACTION", cast[Icallback](item_paste_action_cb))
+  SetCallback(item_paste, "ACTION", cast[Icallback](item_paste_action_cb))
   btn_paste = Button(nil, nil)
   SetAttribute(btn_paste, "IMAGE", "IUP_EditPaste")
   SetAttribute(btn_paste, "FLAT", "Yes")
-  discard SetCallback(btn_paste, "ACTION", cast[Icallback](item_paste_action_cb))
+  SetCallback(btn_paste, "ACTION", cast[Icallback](item_paste_action_cb))
   SetAttribute(btn_paste, "TIP", "Paste (Ctrl+V)")
   SetAttribute(btn_paste, "CANFOCUS", "No")
 
   item_background = Item("&Background...", nil);
-  discard SetCallback(item_background, "ACTION", cast[Icallback](item_background_action_cb))
+  SetCallback(item_background, "ACTION", cast[Icallback](item_background_action_cb))
 
   item_toolbar = Item("&Toobar", nil)
-  discard SetCallback(item_toolbar, "ACTION", cast[Icallback](item_toolbar_action_cb))
+  SetCallback(item_toolbar, "ACTION", cast[Icallback](item_toolbar_action_cb))
   SetAttribute(item_toolbar, "VALUE", "ON")
 
   item_statusbar = Item("&Statusbar", nil)
-  discard SetCallback(item_statusbar, "ACTION", cast[Icallback](item_statusbar_action_cb))
+  SetCallback(item_statusbar, "ACTION", cast[Icallback](item_statusbar_action_cb))
   SetAttribute(item_statusbar, "VALUE", "ON")
 
   item_help = Item("&Help...", nil)
-  discard SetCallback(item_help, "ACTION", cast[Icallback](item_help_action_cb))
+  SetCallback(item_help, "ACTION", cast[Icallback](item_help_action_cb))
 
   item_about = Item("&About...", nil)
-  discard SetCallback(item_about, "ACTION", cast[Icallback](item_about_action_cb))
+  SetCallback(item_about, "ACTION", cast[Icallback](item_about_action_cb))
 
   recent_menu = Menu(nil)
 
@@ -709,8 +709,8 @@ proc create_main_dialog(config:PIhandle):PIhandle =
     item_about,
     nil)
 
-  discard SetCallback(file_menu, "OPEN_CB", cast[Icallback](file_menu_open_cb))
-  discard SetCallback(edit_menu, "OPEN_CB", cast[Icallback](edit_menu_open_cb))
+  SetCallback(file_menu, "OPEN_CB", cast[Icallback](file_menu_open_cb))
+  SetCallback(edit_menu, "OPEN_CB", cast[Icallback](edit_menu_open_cb))
 
   sub_menu_file = Submenu("&File", file_menu)
   sub_menu_edit = Submenu("&Edit", edit_menu)
@@ -744,15 +744,15 @@ proc create_main_dialog(config:PIhandle):PIhandle =
   dlg = Dialog(vbox)
   SetAttributeHandle(dlg, "MENU", menu)
   SetAttribute(dlg, "SIZE", "HALFxHALF")
-  discard SetCallback(dlg, "CLOSE_CB", cast[Icallback](item_exit_action_cb))
-  discard SetCallback(dlg, "DROPFILES_CB", cast[Icallback](dropfiles_cb))
+  SetCallback(dlg, "CLOSE_CB", cast[Icallback](item_exit_action_cb))
+  SetCallback(dlg, "DROPFILES_CB", cast[Icallback](dropfiles_cb))
 
-  discard SetCallback(dlg, "K_cN", cast[Icallback](item_new_action_cb))
-  discard SetCallback(dlg, "K_cO", cast[Icallback](item_open_action_cb))
-  discard SetCallback(dlg, "K_cS", cast[Icallback](item_save_action_cb))
-  discard SetCallback(dlg, "K_cV", cast[Icallback](item_paste_action_cb))
-  discard SetCallback(dlg, "K_cC", cast[Icallback](item_copy_action_cb))
-  discard SetCallback(dlg, "K_cP", cast[Icallback](item_print_action_cb))
+  SetCallback(dlg, "K_cN", cast[Icallback](item_new_action_cb))
+  SetCallback(dlg, "K_cO", cast[Icallback](item_open_action_cb))
+  SetCallback(dlg, "K_cS", cast[Icallback](item_save_action_cb))
+  SetCallback(dlg, "K_cV", cast[Icallback](item_paste_action_cb))
+  SetCallback(dlg, "K_cC", cast[Icallback](item_copy_action_cb))
+  SetCallback(dlg, "K_cP", cast[Icallback](item_print_action_cb))
 
   # parent for pre-defined dialogs in closed functions (Message and IupAlarm)
   SetAttributeHandle(nil, "PARENTDIALOG", dlg)
@@ -797,7 +797,7 @@ proc mainProc =
   # initialize the current file, if not already loaded
   check_new_file(dlg);
 
-  discard niup.MainLoop()
+  MainLoop()
 
   niup.Close()
 

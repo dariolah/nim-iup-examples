@@ -48,7 +48,7 @@ proc load_image_Tecgraf():PIhandle =
 
     let p_imgdata = cast[ptr cuchar](unsafeAddr(imgdata))
     image = ImageRGBA(32, 32, p_imgdata)
-    discard SetHandle("Tecgraf", image)
+    SetHandle("Tecgraf", image)
 
   return image
 
@@ -101,7 +101,7 @@ proc load_image_LogoTecgraf():PIhandle =
 
     let p_imgdata = cast[ptr cuchar](unsafeAddr(imgdata))
     image = ImageRGBA(16, 16, p_imgdata)
-    discard SetHandle("LogoTecgraf", image)
+    SetHandle("LogoTecgraf", image)
 
   return image
 
@@ -173,7 +173,7 @@ proc load_medal_images() =
   SetAttribute(image_gold, "2", "128 128 0")
   SetAttribute(image_gold, "3", "255 0 0")
   SetAttribute(image_gold, "4", "255 255 0")
-  discard SetHandle("IMGGOLD", image_gold)
+  SetHandle("IMGGOLD", image_gold)
 
   let p_img_silver = cast[ptr cuchar](unsafeAddr(img_silver))
   let image_silver = Image(16, 16, p_img_silver)
@@ -182,7 +182,7 @@ proc load_medal_images() =
   SetAttribute(image_silver, "2", "128 128 128")
   SetAttribute(image_silver, "3", "192 192 192")
   SetAttribute(image_silver, "4", "255 255 255")
-  discard SetHandle("IMGSILVER", image_silver)
+  SetHandle("IMGSILVER", image_silver)
 
   let p_img_bronze = cast[ptr cuchar](unsafeAddr(img_bronze))
   let image_bronze = Image(16, 16, p_img_bronze)
@@ -191,7 +191,7 @@ proc load_medal_images() =
   SetAttribute(image_bronze, "2", "0 128 0")
   SetAttribute(image_bronze, "3", "128 128 0")
   SetAttribute(image_bronze, "4", "128 128 128")
-  discard SetHandle("IMGBRONZE", image_bronze)
+  SetHandle("IMGBRONZE", image_bronze)
 
 proc list_multiple_cb (self:PIhandle, t:cstring, i:int, v:int):int =
   var vstring = "deselected"
@@ -216,13 +216,13 @@ proc mainProc =
   SetGlobal("UTF8MODE", "Yes")
 
   list = List ("list_act")
-  discard SetAttributes(list, "1=Gold, 2=Silver, 3=Bronze, 4=Tecgraf, 5=None, SHOWIMAGE=YES, SHOWDRAGDROP=YES, XXX_SPACING=4, VALUE=4".cstring)
+  SetAttributes(list, "1=Gold, 2=Silver, 3=Bronze, 4=Tecgraf, 5=None, SHOWIMAGE=YES, SHOWDRAGDROP=YES, XXX_SPACING=4, VALUE=4".cstring)
   load_medal_images()
   SetAttribute(list, "IMAGE1", "IMGGOLD")
   SetAttribute(list, "IMAGE2", "IMGSILVER")
   SetAttribute(list, "IMAGE3", "IMGBRONZE")
   SetAttributeHandle(list, "IMAGE4", load_image_Tecgraf())
-  discard SetCallback(list, "DRAGDROP_CB", cast[Icallback](dragdrop_cb))
+  SetCallback(list, "DRAGDROP_CB", cast[Icallback](dragdrop_cb))
   #  SetAttribute(list, "FONT", "Helvetica, Bold 40")
   #  SetAttribute(list, "AUTOHIDE", "NO")
 
@@ -230,16 +230,16 @@ proc mainProc =
   SetAttribute(frm_medal, "TITLE".cstring, "Best medal".cstring)
   list_multiple = List(nil)
   
-  discard SetAttributes(list_multiple, "1=\"100m dash\", 2=\"Long jump\", 3=\"Javelin throw\", 4=\"110m hurdlers\", 5=\"Hammer throw\",6=\"High jump\",MULTIPLE=YES, VALUE=\"+--+--\", SIZE=EIGHTHxEIGHTH".cstring)
+  SetAttributes(list_multiple, "1=\"100m dash\", 2=\"Long jump\", 3=\"Javelin throw\", 4=\"110m hurdlers\", 5=\"Hammer throw\",6=\"High jump\",MULTIPLE=YES, VALUE=\"+--+--\", SIZE=EIGHTHxEIGHTH".cstring)
 
-  discard SetCallback(list_multiple, "ACTION", cast[Icallback](list_multiple_cb))
+  SetCallback(list_multiple, "ACTION", cast[Icallback](list_multiple_cb))
   
   frm_sport = Frame (list_multiple)
   
   SetAttribute(frm_sport, "TITLE", "Competed in")
 
   list_dropdown = List (nil)
-  discard SetAttributes(list_dropdown, "1=\"Less than US$ 1000\", 2=\"US$ 2000\", 3=\"US$ 5000\", 4=\"US$ 10000\", 5=\"US$ 20000\", 6=\"US$ 50000\", 7=\"More than US$ 100000\",SHOWIMAGE=YES, DROPDOWN=YES, VISIBLEITEMS=3".cstring)
+  SetAttributes(list_dropdown, "1=\"Less than US$ 1000\", 2=\"US$ 2000\", 3=\"US$ 5000\", 4=\"US$ 10000\", 5=\"US$ 20000\", 6=\"US$ 50000\", 7=\"More than US$ 100000\",SHOWIMAGE=YES, DROPDOWN=YES, VISIBLEITEMS=3".cstring)
   SetAttributeHandle(list_dropdown, "IMAGE1", ImageRGB(20, 20, cast[ptr cuchar](unsafeAddr(image_data_24))))
   SetAttributeHandle(list_dropdown, "IMAGE2", ImageRGB(20, 20, cast[ptr cuchar](unsafeAddr(image_data_24))))
   SetAttributeHandle(list_dropdown, "IMAGE3", load_image_Tecgraf())
@@ -249,12 +249,12 @@ proc mainProc =
 
   dlg = Dialog(Hbox(frm_medal, frm_sport, frm_prize, nil))
   SetAttribute(dlg, "TITLE", "List Example")
-  discard ShowXY(dlg, IUP_CENTER, IUP_CENTER)
+  ShowXY(dlg, IUP_CENTER, IUP_CENTER)
   #SetAttribute(GetChild(dlg, 0), "BGCOLOR", "92 92 255")
   #SetAttribute(dlg, "BACKGROUND", "200 10 80")
   #SetAttribute(dlg, "BGCOLOR", "92 92 255")
 
-  discard MainLoop()
+  MainLoop()
   Close()
 
 if isMainModule:

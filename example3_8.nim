@@ -109,7 +109,7 @@ proc item_open_action_cb(item_open:PIhandle): int =
   niup.SetAttribute(filedlg, "EXTFILTER", "Text Files|*.txt|All Files|*.*|")
   niup.SetAttributeHandle(filedlg, "PARENTDIALOG", niup.GetDialog(item_open))
 
-  discard niup.Popup(filedlg, IUP_CENTERPARENT, IUP_CENTERPARENT)
+  Popup(filedlg, IUP_CENTERPARENT, IUP_CENTERPARENT)
 
   if niup.GetInt(filedlg, "STATUS") != -1:
     let filename = niup.GetAttribute(filedlg, "VALUE")
@@ -133,7 +133,7 @@ proc item_saveas_action_cb(item_saveas:PIhandle): int =
   niup.SetAttribute(filedlg, "EXTFILTER", "Text Files|*.txt|All Files|*.*|")
   niup.SetAttributeHandle(filedlg, "PARENTDIALOG", niup.GetDialog(item_saveas))
 
-  discard niup.Popup(filedlg, IUP_CENTERPARENT, IUP_CENTERPARENT)
+  Popup(filedlg, IUP_CENTERPARENT, IUP_CENTERPARENT)
 
   if niup.GetInt(filedlg, "STATUS") != -1:
     let config = cast[PIhandle](niup.GetAttribute(multitext, "CONFIG"))
@@ -178,9 +178,9 @@ proc item_goto_action_cb(item_goto:PIhandle): int =
   bt_ok = niup.Button("OK", nil)
   niup.SetInt(bt_ok, "TEXT_LINECOUNT", line_count)
   niup.SetAttribute(bt_ok, "PADDING", "10x2")
-  discard niup.SetCallback(bt_ok, "ACTION", cast[ICallback](goto_ok_action_cb))
+  SetCallback(bt_ok, "ACTION", cast[ICallback](goto_ok_action_cb))
   bt_cancel = niup.Button("Cancel", nil)
-  discard niup.SetCallback(bt_cancel, "ACTION", cast[ICallback](goto_cancel_action_cb))
+  SetCallback(bt_cancel, "ACTION", cast[ICallback](goto_cancel_action_cb))
   niup.SetAttribute(bt_cancel, "PADDING", "10x2")
 
   box = niup.Vbox(
@@ -202,7 +202,7 @@ proc item_goto_action_cb(item_goto:PIhandle): int =
   niup.SetAttributeHandle(dlg, "DEFAULTESC", bt_cancel)
   niup.SetAttributeHandle(dlg, "PARENTDIALOG", niup.GetDialog(item_goto))
 
-  discard niup.Popup(dlg, IUP_CENTERPARENT, IUP_CENTERPARENT)
+  Popup(dlg, IUP_CENTERPARENT, IUP_CENTERPARENT)
 
   if niup.GetInt(dlg, "STATUS") == 1:
     let line = niup.GetInt(txt, "VALUE")
@@ -210,7 +210,7 @@ proc item_goto_action_cb(item_goto:PIhandle): int =
     niup.TextConvertLinColToPos(multitext, line, 0, pos)
     niup.SetInt(multitext, "CARETPOS", pos)
     niup.SetInt(multitext, "SCROLLTOPOS", pos)
-    discard niup.SetFocus(multitext)
+    SetFocus(multitext)
 
   niup.Destroy(dlg)
 
@@ -243,7 +243,7 @@ proc find_next_action_cb(bt_next:PIhandle): int =
 
     niup.SetInt(multitext, "FIND_POS", cast[cint](end_pos))
 
-    discard niup.SetFocus(multitext)
+    SetFocus(multitext)
     # When using UTF-8 strings in GTK be aware that all attributes are indexed by characters,
     # NOT by byte index, because some characters in UTF-8 can use more than one byte
     niup.SetfAttribute(multitext, "SELECTIONPOS", "%d:%d", unicode_pos, unicode_end_pos)
@@ -256,7 +256,7 @@ proc find_next_action_cb(bt_next:PIhandle): int =
   return niup.IUP_DEFAULT
 
 proc find_close_action_cb(bt_close:PIhandle): int =
-  discard niup.Hide(niup.GetDialog(bt_close))
+  Hide(niup.GetDialog(bt_close))
   return niup.IUP_DEFAULT
 
 proc item_find_action_cb(item_find:PIhandle): int =
@@ -273,9 +273,9 @@ proc item_find_action_cb(item_find:PIhandle): int =
     niup.SetAttribute(find_case, "NAME", "FIND_CASE")
     bt_next = niup.Button("Find Next", nil)
     niup.SetAttribute(bt_next, "PADDING", "10x2")
-    discard niup.SetCallback(bt_next, "ACTION", cast[ICallback](find_next_action_cb))
+    SetCallback(bt_next, "ACTION", cast[ICallback](find_next_action_cb))
     bt_close = niup.Button("Close", nil)
-    discard niup.SetCallback(bt_close, "ACTION", cast[ICallback](find_close_action_cb))
+    SetCallback(bt_close, "ACTION", cast[ICallback](find_close_action_cb))
     niup.SetAttribute(bt_close, "PADDING", "10x2")
 
     box = niup.Vbox(
@@ -305,7 +305,7 @@ proc item_find_action_cb(item_find:PIhandle): int =
     niup.SetAttribute(item_find, "FIND_DIALOG", cast[cstring](dlg))
 
   # centerparent first time, next time reuse the last position
-  discard niup.ShowXY(dlg, IUP_CURRENT, IUP_CURRENT)
+  ShowXY(dlg, IUP_CURRENT, IUP_CURRENT)
 
   return niup.IUP_DEFAULT
 
@@ -341,7 +341,7 @@ proc item_delete_action_cb(item_delete:PIhandle):int =
 
 proc item_select_all_action_cb(item_select_all:PIhandle):int =
   let multitext = niup.GetDialogChild(item_select_all, "MULTITEXT")
-  discard niup.SetFocus(multitext)
+  SetFocus(multitext)
   niup.SetAttribute(multitext, "SELECTION", "ALL")
   return IUP_DEFAULT
 
@@ -352,7 +352,7 @@ proc item_font_action_cb(item_font:PIhandle): int =
   niup.SetStrAttribute(fontdlg, "VALUE", font)
   niup.SetAttributeHandle(fontdlg, "PARENTDIALOG", niup.GetDialog(item_font))
 
-  discard niup.Popup(fontdlg, IUP_CENTERPARENT, IUP_CENTERPARENT)
+  Popup(fontdlg, IUP_CENTERPARENT, IUP_CENTERPARENT)
 
   if niup.GetInt(fontdlg, "STATUS") == 1:
     let config = cast[PIhandle](niup.GetAttribute(multitext, "CONFIG"))
@@ -371,7 +371,7 @@ proc item_exit_action_cb(item_exit:PIhandle):cint {.cdecl.} =
   let dlg = niup.GetDialog(item_exit)
   let config = cast[PIhandle](niup.GetAttribute(dlg, "CONFIG"))
   niup.ConfigDialogClosed(config, dlg, "MainWindow")
-  discard niup.ConfigSave(config)
+  ConfigSave(config)
   niup.Destroy(config)
   return niup.IUP_CLOSE
 
@@ -387,12 +387,12 @@ proc mainProc =
 
   var argc:cint=0
   var argv:cstringArray=nil
-  discard niup.Open(argc, addr argv)
+  Open(argc, addr argv)
   niup.ImageLibOpen()
 
   let config:PIhandle = niup.Config()
   niup.SetAttribute(config, "APP_NAME", "simple_notepad")
-  discard niup.ConfigLoad(config)
+  ConfigLoad(config)
 
   multitext =  niup.Text(nil)
   niup.SetAttribute(multitext, "MULTILINE", "YES")
@@ -454,22 +454,22 @@ proc mainProc =
   item_font= niup.Item("&Font...", nil)
   item_about= niup.Item("&About...", nil)
 
-  discard niup.SetCallback(item_open, "ACTION", cast[ICallback](item_open_action_cb))
-  discard niup.SetCallback(btn_open, "ACTION", cast[ICallback](item_open_action_cb))
-  discard niup.SetCallback(item_saveas, "ACTION", cast[ICallback](item_saveas_action_cb))
-  discard niup.SetCallback(btn_save, "ACTION", cast[ICallback](item_saveas_action_cb))
-  discard niup.SetCallback(item_exit, "ACTION", cast[ICallback](item_exit_action_cb))
-  discard niup.SetCallback(item_find, "ACTION", cast[ICallback](item_find_action_cb))
-  discard niup.SetCallback(btn_find, "ACTION", cast[ICallback](item_find_action_cb))
-  discard niup.SetCallback(item_goto, "ACTION", cast[ICallback](item_goto_action_cb))
-  discard niup.SetCallback(item_font, "ACTION", cast[ICallback](item_font_action_cb))
-  discard niup.SetCallback(item_about, "ACTION", cast[ICallback](item_about_action_cb))
-  discard niup.SetCallback(multitext, "CARET_CB", cast[ICallback](multitext_caret_cb))
-  discard niup.SetCallback(item_copy, "ACTION", cast[Icallback](item_copy_action_cb))
-  discard niup.SetCallback(item_paste, "ACTION", cast[Icallback](item_paste_action_cb))
-  discard niup.SetCallback(item_cut, "ACTION", cast[Icallback](item_cut_action_cb))
-  discard niup.SetCallback(item_delete, "ACTION", cast[Icallback](item_delete_action_cb))
-  discard niup.SetCallback(item_select_all, "ACTION", cast[Icallback](item_select_all_action_cb))
+  SetCallback(item_open, "ACTION", cast[ICallback](item_open_action_cb))
+  SetCallback(btn_open, "ACTION", cast[ICallback](item_open_action_cb))
+  SetCallback(item_saveas, "ACTION", cast[ICallback](item_saveas_action_cb))
+  SetCallback(btn_save, "ACTION", cast[ICallback](item_saveas_action_cb))
+  SetCallback(item_exit, "ACTION", cast[ICallback](item_exit_action_cb))
+  SetCallback(item_find, "ACTION", cast[ICallback](item_find_action_cb))
+  SetCallback(btn_find, "ACTION", cast[ICallback](item_find_action_cb))
+  SetCallback(item_goto, "ACTION", cast[ICallback](item_goto_action_cb))
+  SetCallback(item_font, "ACTION", cast[ICallback](item_font_action_cb))
+  SetCallback(item_about, "ACTION", cast[ICallback](item_about_action_cb))
+  SetCallback(multitext, "CARET_CB", cast[ICallback](multitext_caret_cb))
+  SetCallback(item_copy, "ACTION", cast[Icallback](item_copy_action_cb))
+  SetCallback(item_paste, "ACTION", cast[Icallback](item_paste_action_cb))
+  SetCallback(item_cut, "ACTION", cast[Icallback](item_cut_action_cb))
+  SetCallback(item_delete, "ACTION", cast[Icallback](item_delete_action_cb))
+  SetCallback(item_select_all, "ACTION", cast[Icallback](item_select_all_action_cb))
 
   recent_menu = niup.Menu(nil)
 
@@ -512,24 +512,24 @@ proc mainProc =
   niup.SetAttributeHandle(dlg, "MENU", menu)
   niup.SetAttribute(dlg, "TITLE", "Simple Notepad")
   niup.SetAttribute(dlg, "SIZE", "HALFxHALF")
-  discard niup.SetCallback(dlg, "CLOSECB", cast[ICallback](item_exit_action_cb))
-  discard niup.SetCallback(edit_menu, "OPEN_CB", cast[Icallback](edit_menu_open_cb))
+  SetCallback(dlg, "CLOSECB", cast[ICallback](item_exit_action_cb))
+  SetCallback(edit_menu, "OPEN_CB", cast[Icallback](edit_menu_open_cb))
 
   niup.SetAttribute(dlg, "CONFIG", cast[cstring](config))
 
   # parent for pre-defined dialogs in closed functions (IupMessage)
   niup.SetAttributeHandle(nil, "PARENTDIALOG", dlg);
 
-  discard niup.SetCallback(dlg, "K_cO", cast[ICallback](item_open_action_cb))
-  discard niup.SetCallback(dlg, "K_cS", cast[ICallback](item_saveas_action_cb))
-  discard niup.SetCallback(dlg, "K_cF", cast[ICallback](item_find_action_cb))
-  discard niup.SetCallback(dlg, "K_cG", cast[ICallback](item_goto_action_cb))
+  SetCallback(dlg, "K_cO", cast[ICallback](item_open_action_cb))
+  SetCallback(dlg, "K_cS", cast[ICallback](item_saveas_action_cb))
+  SetCallback(dlg, "K_cF", cast[ICallback](item_find_action_cb))
+  SetCallback(dlg, "K_cG", cast[ICallback](item_goto_action_cb))
 
   niup.ConfigRecentInit(config, recent_menu, cast[Icallback](config_recent_cb), 10)
 
   niup.ConfigDialogShow(config, dlg, "MainWindow")
 
-  discard niup.MainLoop()
+  MainLoop()
 
   niup.Close()
 

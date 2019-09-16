@@ -11,7 +11,7 @@ proc open_cb(): int =
   niup.SetAttribute(filedlg, "DIALOGTYPE", "OPEN")
   niup.SetAttribute(filedlg, "EXTFILTER", "Text Files|*.txt|All Files|*.*|")
 
-  discard niup.Popup(filedlg, IUP_CENTER, IUP_CENTER)
+  Popup(filedlg, IUP_CENTER, IUP_CENTER)
 
   if niup.GetInt(filedlg, "STATUS") != -1:
     let filename = niup.GetAttribute(filedlg, "VALUE")
@@ -31,7 +31,7 @@ proc saveas_cb(): int =
   niup.SetAttribute(filedlg, "DIALOGTYPE", "SAVE")
   niup.SetAttribute(filedlg, "EXTFILTER", "Text Files|*.txt|All Files|*.*|")
 
-  discard niup.Popup(filedlg, IUP_CENTER, IUP_CENTER)
+  Popup(filedlg, IUP_CENTER, IUP_CENTER)
 
   if niup.GetInt(filedlg, "STATUS") != -1:
     let filename = niup.GetAttribute(filedlg, "VALUE")
@@ -49,7 +49,7 @@ proc font_cb(): int =
   let font = niup.GetAttribute(multitext, "FONT")
 
   niup.SetStrAttribute(fontdlg, "VALUE", font)
-  discard niup.Popup(fontdlg, IUP_CENTER, IUP_CENTER)
+  Popup(fontdlg, IUP_CENTER, IUP_CENTER)
 
   if niup.GetInt(fontdlg, "STATUS") == 1:
     let font = niup.GetAttribute(fontdlg, "VALUE")
@@ -75,7 +75,7 @@ proc mainProc =
 
   var argc:cint=0
   var argv:cstringArray=nil
-  discard niup.Open(argc, addr argv)
+  Open(argc, addr argv)
 
   multitext =  niup.Text(nil)
   niup.SetAttribute(multitext, "MULTILINE", "YES")
@@ -87,11 +87,11 @@ proc mainProc =
   item_font= niup.Item("Font...", nil)
   item_about= niup.Item("About...", nil)
 
-  discard niup.SetCallback(item_exit, "ACTION", cast[ICallback](exit_cb))
-  discard niup.SetCallback(item_open, "ACTION", cast[ICallback](open_cb))
-  discard niup.SetCallback(item_saveas, "ACTION", cast[ICallback](saveas_cb))
-  discard niup.SetCallback(item_font, "ACTION", cast[ICallback](font_cb))
-  discard niup.SetCallback(item_about, "ACTION", cast[ICallback](about_cb))
+  SetCallback(item_exit, "ACTION", cast[ICallback](exit_cb))
+  SetCallback(item_open, "ACTION", cast[ICallback](open_cb))
+  SetCallback(item_saveas, "ACTION", cast[ICallback](saveas_cb))
+  SetCallback(item_font, "ACTION", cast[ICallback](font_cb))
+  SetCallback(item_about, "ACTION", cast[ICallback](about_cb))
 
   file_menu = niup.Menu(item_open,
                        item_saveas,
@@ -120,10 +120,10 @@ proc mainProc =
   niup.SetAttribute(dlg, "TITLE", "Simple Notepad")
   niup.SetAttribute(dlg, "SIZE", "QUARTERxQUARTER");
 
-  discard niup.ShowXY(dlg, niup.IUP_CENTER, niup.IUP_CENTER)
+  ShowXY(dlg, niup.IUP_CENTER, niup.IUP_CENTER)
   niup.SetAttribute(dlg, "USERSIZE", nil);
 
-  discard niup.MainLoop()
+  MainLoop()
 
   niup.Close()
 

@@ -8,7 +8,7 @@ proc mainProc =
 
   var argc:cint=0
   var argv:cstringArray=nil
-  discard niup.Open(argc, addr argv)
+  Open(argc, addr argv)
 
   multitext =  niup.Text(nil);
   vbox = niup.Vbox(multitext,
@@ -20,10 +20,10 @@ proc mainProc =
   niup.SetAttribute(dlg, "TITLE", "Simple Notepad")
   niup.SetAttribute(dlg, "SIZE", "QUARTERxQUARTER");
 
-  discard niup.ShowXY(dlg, niup.IUP_CENTER, niup.IUP_CENTER)
+  ShowXY(dlg, niup.IUP_CENTER, niup.IUP_CENTER)
   niup.SetAttribute(dlg, "USERSIZE", nil);
 
-  discard niup.MainLoop()
+  MainLoop()
 
   niup.Close()
 

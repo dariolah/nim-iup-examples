@@ -20,7 +20,7 @@ proc listaction_cb(self:PIhandle, item:int, state:int):int =
 
 proc mainProc =
   niupext.Open()
-  discard ControlsOpen()
+  ControlsOpen()
 
   let mlist = MatrixList()
   SetInt(mlist, "COUNT", 10)
@@ -34,9 +34,9 @@ proc mainProc =
   #SetAttribute(mlist, "EXPAND", "Yes")
 
   SetAttribute(mlist, "EDITABLE", "Yes")
-  discard SetCallback(mlist,"LISTCLICK_CB",cast[Icallback](listclick_cb))
-  discard SetCallback(mlist,"LISTACTION_CB",cast[Icallback](listaction_cb))
-  discard SetCallback(mlist, "IMAGEVALUECHANGED_CB", cast[Icallback](imagevaluechanged_cb))
+  SetCallback(mlist,"LISTCLICK_CB",cast[Icallback](listclick_cb))
+  SetCallback(mlist,"LISTACTION_CB",cast[Icallback](listaction_cb))
+  SetCallback(mlist, "IMAGEVALUECHANGED_CB", cast[Icallback](imagevaluechanged_cb))
   
   # Bluish style
   SetAttribute(mlist, "TITLE", "Test")
@@ -82,11 +82,11 @@ proc mainProc =
   SetAttribute(dlg, "TITLE", "MatrixList")
   SetAttribute(dlg, "MARGIN", "10x10")
   #SetAttribute(dlg, "FONT", "Helvetica, 24")
-  discard ShowXY(dlg, IUP_CENTER, IUP_CENTER)
+  ShowXY(dlg, IUP_CENTER, IUP_CENTER)
 
   SetAttribute(mlist, "APPENDITEM","KKK")
 
-  discard MainLoop()
+  MainLoop()
   Close()
 
 if isMainModule:

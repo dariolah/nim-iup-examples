@@ -13,7 +13,7 @@ proc mainProc =
 
   var argc:cint=0
   var argv:cstringArray=nil
-  discard niup.Open(argc, addr argv)
+  Open(argc, addr argv)
 
   multitext =  niup.Text(nil)
   niup.SetAttribute(multitext, "MULTILINE", "YES")
@@ -22,7 +22,7 @@ proc mainProc =
   item_open = niup.Item("Open", nil)
   item_saveas = niup.Item("Save As", nil)
   item_exit = niup.Item("Exit", nil)
-  discard niup.SetCallback(item_exit, "ACTION", cast[ICallback](exit_cb))
+  SetCallback(item_exit, "ACTION", cast[ICallback](exit_cb))
 
   file_menu = niup.Menu(item_open,
                        item_saveas,
@@ -42,10 +42,10 @@ proc mainProc =
   niup.SetAttribute(dlg, "TITLE", "Simple Notepad")
   niup.SetAttribute(dlg, "SIZE", "QUARTERxQUARTER");
 
-  discard niup.ShowXY(dlg, niup.IUP_CENTER, niup.IUP_CENTER)
+  ShowXY(dlg, niup.IUP_CENTER, niup.IUP_CENTER)
   niup.SetAttribute(dlg, "USERSIZE", nil);
 
-  discard niup.MainLoop()
+  MainLoop()
 
   niup.Close()
 

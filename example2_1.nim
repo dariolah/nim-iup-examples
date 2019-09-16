@@ -6,7 +6,7 @@ import niup
 proc mainProc =
   var argc:cint=0
   var argv:cstringArray=nil
-  discard niup.Open(argc, addr argv)
+  Open(argc, addr argv)
   niup.Message("Hello World 1", "Hello World from IUP.")
   niup.Close()
 

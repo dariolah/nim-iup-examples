@@ -48,7 +48,7 @@ proc load_image_Tecgraf():PIhandle =
 
     let p_imgdata = cast[ptr cuchar](unsafeAddr(imgdata))
     image = ImageRGBA(32, 32, p_imgdata)
-    discard SetHandle("Tecgraf", image)
+    SetHandle("Tecgraf", image)
 
   return image
 
@@ -77,7 +77,7 @@ proc load_image_LogoTecgraf():PIhandle =
 
     let p_imgdata = cast[ptr cuchar](unsafeAddr(imgdata))
     image = ImageRGBA(16, 16, p_imgdata)
-    discard SetHandle("LogoTecgraf", image)
+    SetHandle("LogoTecgraf", image)
 
   return image
 
@@ -185,69 +185,69 @@ proc mainProc =
                 bt1, bt2, bt3, bt4, btok, btcancel, txt1, txt2:PIhandle
 
   bt1 = Button("(1)Drop+Edit", nil)
-  discard SetCallback(bt1, "ACTION", cast[Icallback](bt_cb))
+  SetCallback(bt1, "ACTION", cast[Icallback](bt_cb))
   bt2 = Button("(2)Drop", nil)
-  discard SetCallback(bt2, "ACTION", cast[Icallback](bt_cb))
+  SetCallback(bt2, "ACTION", cast[Icallback](bt_cb))
   bt3 = Button("(3)List+Edit", nil)
-  discard SetCallback(bt3, "ACTION", cast[Icallback](bt_cb))
+  SetCallback(bt3, "ACTION", cast[Icallback](bt_cb))
   bt4 = Button("(4)List", nil)
-  discard SetCallback(bt4, "ACTION", cast[Icallback](bt_cb))
+  SetCallback(bt4, "ACTION", cast[Icallback](bt_cb))
 
   list1 = List(nil)
-  discard SetCallback(list1, "ACTION", cast[Icallback](list_cb))
+  SetCallback(list1, "ACTION", cast[Icallback](list_cb))
   list2 = List(nil)
-  discard SetCallback(list2, "ACTION", cast[Icallback](list_cb))
+  SetCallback(list2, "ACTION", cast[Icallback](list_cb))
   list3 = List(nil)
-  discard SetCallback(list3, "ACTION", cast[Icallback](list_cb))
+  SetCallback(list3, "ACTION", cast[Icallback](list_cb))
   list4 = List(nil)
-  discard SetCallback(list4, "ACTION", cast[Icallback](list_cb))
+  SetCallback(list4, "ACTION", cast[Icallback](list_cb))
 
-  discard SetAttributes(list1, "1=\"US$ 1000\", 2=\"US$ 2000\", 3=\"US$ 30000000\", 4=\"US$ 4000\", 5=\"US$ 5000\", 6=\"US$ 6000\", 7=\"US$ 7000\",EXPAND=HORIZONTAL, EDITBOX=YES, DROPDOWN=YES, VISIBLEITEMS=5, SHOWIMAGE=YES")
+  SetAttributes(list1, "1=\"US$ 1000\", 2=\"US$ 2000\", 3=\"US$ 30000000\", 4=\"US$ 4000\", 5=\"US$ 5000\", 6=\"US$ 6000\", 7=\"US$ 7000\",EXPAND=HORIZONTAL, EDITBOX=YES, DROPDOWN=YES, VISIBLEITEMS=5, SHOWIMAGE=YES")
   SetAttributeHandle(list1, "IMAGE1", load_image_LogoTecgraf())
   SetAttributeHandle(list1, "IMAGE2", load_image_LogoTecgraf())
   SetAttributeHandle(list1, "IMAGE3", load_image_Tecgraf())
   SetAttributeHandle(list1, "IMAGE4", load_image_LogoTecgraf())
 
-  discard SetAttributes(list2, "1=\"R$ 1000\", 2=\"R$ 2000\", 3=\"R$ 3000\", 4=\"R$ 4000\", 5=\"R$ 5000\", 6=\"R$ 6000\", 7=\"R$ 7000\",EXPAND=HORIZONTAL, DROPDOWN=YES, VISIBLEITEMS=5, SHOWIMAGE=YES")
+  SetAttributes(list2, "1=\"R$ 1000\", 2=\"R$ 2000\", 3=\"R$ 3000\", 4=\"R$ 4000\", 5=\"R$ 5000\", 6=\"R$ 6000\", 7=\"R$ 7000\",EXPAND=HORIZONTAL, DROPDOWN=YES, VISIBLEITEMS=5, SHOWIMAGE=YES")
   SetAttributeHandle(list2, "IMAGE1", load_image_LogoTecgraf())
   SetAttributeHandle(list2, "IMAGE2", load_image_LogoTecgraf())
   SetAttributeHandle(list2, "IMAGE3", load_image_Tecgraf())
   SetAttributeHandle(list2, "IMAGE4", load_image_LogoTecgraf())
 
-  discard SetAttributes(list3, "1=\"Char A\", 2=\"Char B\", 3=\"Char CCCCC\", 4=\"Char D\", 5=\"Char F\", 6=\"Char G\", 7=\"Char H\",EXPAND=YES, EDITBOX=YES, XXX_SPACING=4, SHOWIMAGE=YES")
+  SetAttributes(list3, "1=\"Char A\", 2=\"Char B\", 3=\"Char CCCCC\", 4=\"Char D\", 5=\"Char F\", 6=\"Char G\", 7=\"Char H\",EXPAND=YES, EDITBOX=YES, XXX_SPACING=4, SHOWIMAGE=YES")
   SetAttributeHandle(list3, "IMAGE1", load_image_Test())
   #SetAttributeHandle(list3, "IMAGE3", load_image_Test())
   SetAttributeHandle(list3, "IMAGE5", load_image_Test())
   SetAttributeHandle(list3, "IMAGE7", load_image_Test())
   SetAttributeHandle(list1, "IMAGE3", load_image_Tecgraf())
 
-  discard SetAttributes(list4, "1=\"Number 1\", 2=\"Number 2\", 3=\"Number 3\", 4=\"Number 4\", 5=\"Number 5\", 6=\"Number 6\", 7=\"Number 7\",EXPAND=YES")
+  SetAttributes(list4, "1=\"Number 1\", 2=\"Number 2\", 3=\"Number 3\", 4=\"Number 4\", 5=\"Number 5\", 6=\"Number 6\", 7=\"Number 7\",EXPAND=YES")
 
   # DRAG AND DROP TESTS ////////////////////////////////////
   SetAttribute(list1, "DROPTARGET", "YES")
   SetAttribute(list1, "DROPTYPES", "TEXT,STRING")
-  discard SetCallback(list1, "DROPDATA_CB", cast[Icallback](testDropData_cb))
-  discard SetCallback(list1, "DROPMOTION_CB", cast[Icallback](testDropMotion_cb))
+  SetCallback(list1, "DROPDATA_CB", cast[Icallback](testDropData_cb))
+  SetCallback(list1, "DROPMOTION_CB", cast[Icallback](testDropMotion_cb))
   SetAttribute(list1, "NAME", "list1")
 
   SetAttribute(list2, "DROPTARGET", "YES")
   SetAttribute(list2, "DROPTYPES", "TEXT,STRING")
-  discard SetCallback(list2, "DROPDATA_CB", cast[Icallback](testDropData_cb))
-  discard SetCallback(list2, "DROPMOTION_CB", cast[Icallback](testDropMotion_cb))
+  SetCallback(list2, "DROPDATA_CB", cast[Icallback](testDropData_cb))
+  SetCallback(list2, "DROPMOTION_CB", cast[Icallback](testDropMotion_cb))
   SetAttribute(list2, "NAME", "list2")
 
   SetAttribute(list3, "DROPTARGET", "YES")
   SetAttribute(list3, "DROPTYPES", "STRING")
-  discard SetCallback(list3, "DROPDATA_CB", cast[Icallback](testDropData_cb))
-  discard SetCallback(list3, "DROPMOTION_CB", cast[Icallback](testDropMotion_cb))
+  SetCallback(list3, "DROPDATA_CB", cast[Icallback](testDropData_cb))
+  SetCallback(list3, "DROPMOTION_CB", cast[Icallback](testDropMotion_cb))
   SetAttribute(list3, "NAME", "list3")
 
   SetAttribute(list4, "DRAGSOURCE", "YES")
   SetAttribute(list4, "DRAGTYPES", "TEXT")
-  discard SetCallback(list4, "DRAGBEGIN_CB", cast[Icallback](testDragBegin_cb))
-  discard SetCallback(list4, "DRAGDATASIZE_CB",  cast[Icallback](testDragDataSize_cb))
-  discard SetCallback(list4, "DRAGDATA_CB",  cast[Icallback](testDragData_cb))
-  discard SetCallback(list4, "DRAGEND_CB",   cast[Icallback](testDragEnd_cb))
+  SetCallback(list4, "DRAGBEGIN_CB", cast[Icallback](testDragBegin_cb))
+  SetCallback(list4, "DRAGDATASIZE_CB",  cast[Icallback](testDragDataSize_cb))
+  SetCallback(list4, "DRAGDATA_CB",  cast[Icallback](testDragData_cb))
+  SetCallback(list4, "DRAGEND_CB",   cast[Icallback](testDragEnd_cb))
   SetAttribute(list4,"DRAGCURSOR", "Tecgraf")
   SetAttribute(list4, "NAME", "list4")
 
@@ -257,8 +257,8 @@ proc mainProc =
   SetAttribute(txt1, "VALUE", "Drop Text Here")
   SetAttribute(txt1, "DROPTARGET", "YES")
   SetAttribute(txt1, "DROPTYPES", "TEXT")
-  discard SetCallback(txt1, "DROPDATA_CB", cast[Icallback](testDropData_cb))
-  discard SetCallback(txt1, "DROPMOTION_CB", cast[Icallback](testDropMotion_cb))
+  SetCallback(txt1, "DROPDATA_CB", cast[Icallback](testDropData_cb))
+  SetCallback(txt1, "DROPMOTION_CB", cast[Icallback](testDropMotion_cb))
   SetAttribute(txt1, "NAME", "txt1")
 
   txt2 = Text(nil)
@@ -268,10 +268,10 @@ proc mainProc =
   SetAttribute(txt2, "DRAGSOURCE", "YES")
   SetAttribute(txt2, "DRAGTYPES", "TEXT,STRING")
   SetAttribute(txt2, "DRAGSOURCEMOVE", "Yes")
-  discard SetCallback(txt2, "DRAGBEGIN_CB", cast[Icallback](testDragBegin_cb))
-  discard SetCallback(txt2, "DRAGDATASIZE_CB",  cast[Icallback](testDragDataSize_cb))
-  discard SetCallback(txt2, "DRAGDATA_CB",  cast[Icallback](testDragData_cb))
-  discard SetCallback(txt2, "DRAGEND_CB",   cast[Icallback](testDragEnd_cb))
+  SetCallback(txt2, "DRAGBEGIN_CB", cast[Icallback](testDragBegin_cb))
+  SetCallback(txt2, "DRAGDATASIZE_CB",  cast[Icallback](testDragDataSize_cb))
+  SetCallback(txt2, "DRAGDATA_CB",  cast[Icallback](testDragData_cb))
+  SetCallback(txt2, "DRAGEND_CB",   cast[Icallback](testDragEnd_cb))
   SetAttribute(txt2, "NAME", "txt2")
 
   #////////////////////////////////////////////////////////
@@ -291,17 +291,17 @@ proc mainProc =
   SetAttribute(bt3, "BGCOLOR", "192 192 192")
   SetAttribute(bt4, "BGCOLOR", "192 192 192")
 
-  discard SetCallback(list1, "GETFOCUS_CB",  cast[Icallback](getfocus_cb))
-  discard SetCallback(list1, "KILLFOCUS_CB", cast[Icallback](killfocus_cb))
-  discard SetCallback(list2, "GETFOCUS_CB",  cast[Icallback](getfocus_cb))
-  discard SetCallback(list2, "KILLFOCUS_CB", cast[Icallback](killfocus_cb))
-  discard SetCallback(list3, "GETFOCUS_CB",  cast[Icallback](getfocus_cb))
-  discard SetCallback(list3, "KILLFOCUS_CB", cast[Icallback](killfocus_cb))
-  discard SetCallback(list4, "GETFOCUS_CB",  cast[Icallback](getfocus_cb))
-  discard SetCallback(list4, "KILLFOCUS_CB", cast[Icallback](killfocus_cb))
+  SetCallback(list1, "GETFOCUS_CB",  cast[Icallback](getfocus_cb))
+  SetCallback(list1, "KILLFOCUS_CB", cast[Icallback](killfocus_cb))
+  SetCallback(list2, "GETFOCUS_CB",  cast[Icallback](getfocus_cb))
+  SetCallback(list2, "KILLFOCUS_CB", cast[Icallback](killfocus_cb))
+  SetCallback(list3, "GETFOCUS_CB",  cast[Icallback](getfocus_cb))
+  SetCallback(list3, "KILLFOCUS_CB", cast[Icallback](killfocus_cb))
+  SetCallback(list4, "GETFOCUS_CB",  cast[Icallback](getfocus_cb))
+  SetCallback(list4, "KILLFOCUS_CB", cast[Icallback](killfocus_cb))
 
-  discard SetCallback(list1, "EDIT_CB", cast[Icallback](edit_cb))
-  discard SetCallback(list3, "EDIT_CB", cast[Icallback](edit_cb))
+  SetCallback(list1, "EDIT_CB", cast[Icallback](edit_cb))
+  SetCallback(list3, "EDIT_CB", cast[Icallback](edit_cb))
 
   #  SetAttribute(list3, "READONLY", "YES")
 
@@ -314,11 +314,11 @@ proc mainProc =
   SetAttribute(lbl, "EXPAND", "HORIZONTAL")
 
   btok = Button("OK", nil)
-  discard SetCallback(btok, "ACTION", cast[Icallback](btclose_cb))
-  discard SetHandle("btok", btok)
+  SetCallback(btok, "ACTION", cast[Icallback](btclose_cb))
+  SetHandle("btok", btok)
   btcancel = Button("Cancel", "btclose_cb")
-  discard SetCallback(btcancel, "ACTION", cast[Icallback](btclose_cb))
-  discard SetHandle("btcancel", btcancel)
+  SetCallback(btcancel, "ACTION", cast[Icallback](btclose_cb))
+  SetHandle("btcancel", btcancel)
 
   SetAttribute(btok, "_LIST1", cast[cstring](list1))
   SetAttribute(btok, "_LIST2", cast[cstring](list2))
@@ -334,9 +334,9 @@ proc mainProc =
   #  SetAttribute(dlg, "BACKGROUND", "200 10 80")
   #  SetAttribute(dlg, "BGCOLOR", "92 92 255")
 
-  discard ShowXY(dlg, IUP_CENTER, IUP_CENTER)
+  ShowXY(dlg, IUP_CENTER, IUP_CENTER)
 
-  discard MainLoop()
+  MainLoop()
   Close()
 
 if isMainModule:

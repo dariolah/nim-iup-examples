@@ -13,7 +13,7 @@ proc mainProc =
 
   var argc:cint=0
   var argv:cstringArray=nil
-  discard niup.Open(argc, addr argv)
+  Open(argc, addr argv)
 
   button = niup.Button("OK", nil)
   vbox = niup.Vbox(button,
@@ -22,11 +22,11 @@ proc mainProc =
   niup.SetAttribute(dlg, "TITLE", "Hello World 3")
 
   # Registers callbacks
-  discard niup.SetCallback(button, "ACTION", cast[ICallback](btn_exit_cb))
+  SetCallback(button, "ACTION", cast[ICallback](btn_exit_cb))
 
-  discard niup.ShowXY(dlg, niup.IUP_CENTER, niup.IUP_CENTER)
+  ShowXY(dlg, niup.IUP_CENTER, niup.IUP_CENTER)
 
-  discard niup.MainLoop()
+  MainLoop()
 
   niup.Close()
 
