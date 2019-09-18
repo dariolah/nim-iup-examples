@@ -44,3 +44,5 @@ For code explanation and more information visit <https://www.tecgraf.puc-rio.br/
 [![list3](https://raw.githubusercontent.com/dariolah/nim-iup-examples/master/screenshots/list3.png)](#list3)
   - matrixlist
 [![matrixlist](https://raw.githubusercontent.com/dariolah/nim-iup-examples/master/screenshots/matrixlist.png)](#matrixlist)
+  - matrix
+[![matrix](https://raw.githubusercontent.com/dariolah/nim-iup-examples/master/screenshots/matrix.png)](#matrix)
