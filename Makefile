@@ -18,7 +18,17 @@ EXAMPLES=\
         simple_notepad.nim \
         scintilla_notepad.nim \
 	example4_1.nim \
-	example4_2.nim
+	example4_2.nim \
+	example4_3.nim \
+	example4_4.nim \
+	list1.nim \
+	list2.nim \
+	list3.nim \
+	matrixlist.nim \
+	matrix.nim \
+	tree.nim \
+	webbrowser.nim
+
 
 TARGETS=$(EXAMPLES:.nim=)
 
