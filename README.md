@@ -50,3 +50,5 @@ For code explanation and more information visit <https://www.tecgraf.puc-rio.br/
 [![tree](https://raw.githubusercontent.com/dariolah/nim-iup-examples/master/screenshots/tree.png)](#tree)
   - webbrowser
 [![webbrowser](https://raw.githubusercontent.com/dariolah/nim-iup-examples/master/screenshots/webbrowser.png)](#webbrowser)
+  - plot
+[![plot](https://raw.githubusercontent.com/dariolah/nim-iup-examples/master/screenshots/plot.png)](#plot)

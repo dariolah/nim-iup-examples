@@ -27,7 +27,8 @@ EXAMPLES=\
 	matrixlist.nim \
 	matrix.nim \
 	tree.nim \
-	webbrowser.nim
+	webbrowser.nim \
+	plot
 
 
 TARGETS=$(EXAMPLES:.nim=)
