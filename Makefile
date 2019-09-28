@@ -28,7 +28,8 @@ EXAMPLES=\
 	matrix.nim \
 	tree.nim \
 	webbrowser.nim \
-	plot
+	plot \
+	version
 
 
 TARGETS=$(EXAMPLES:.nim=)
@@ -36,8 +37,8 @@ TARGETS=$(EXAMPLES:.nim=)
 all: $(TARGETS)
 
 %: %.nim
-	nim c --out:../build-nim-iup-examples-nim-Debug/$@ --nimCache:../build-nim-iup-examples-nim-Debug/nimcache $^
-	nim c --cpu:amd64 --os:windows --gcc.exe:x86_64-w64-mingw32-gcc --gcc.linkerexe:x86_64-w64-mingw32-gcc --out:../build-nim-iup-examples-nim-Debug/$@.exe --nimCache:../build-nim-iup-examples-nim-Debug/nimcache $^
+	nim c --out:../build-nim-iup-examples-nim-Debug/$@ --nimCache:../build-nim-iup-examples-nim-Debug/nimcache --gc:boehm $^
+	nim c --cpu:amd64 --os:windows --gcc.exe:x86_64-w64-mingw32-gcc --gcc.linkerexe:x86_64-w64-mingw32-gcc --out:../build-nim-iup-examples-nim-Debug/$@.exe --nimCache:../build-nim-iup-examples-nim-Debug/nimcache --gc:boehm $^
 
 clean:
 	rm -rf ../build-nim-iup-examples-nim-Debug/
