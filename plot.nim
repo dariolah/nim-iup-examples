@@ -110,11 +110,8 @@ proc InitPlots() =
   SetAttribute(plot[1], "AXS_YLABEL", "Tg (Y)")
   SetAttribute(plot[1], "AXS_XAUTOMIN", "NO")
   SetAttribute(plot[1], "AXS_XAUTOMAX", "NO")
-
-  #bug in IUP for Linux??? Works for Windows(wine+MingW)
-  #SetAttribute(plot[1], "AXS_YAUTOMIN", "NO")
-  #SetAttribute(plot[1], "AXS_YAUTOMAX", "NO")
-
+  SetAttribute(plot[1], "AXS_YAUTOMIN", "NO")
+  SetAttribute(plot[1], "AXS_YAUTOMAX", "NO")
   SetAttribute(plot[1], "AXS_XMIN", "10")
   SetAttribute(plot[1], "AXS_XMAX", "60")
   SetAttribute(plot[1], "AXS_YMIN", "-0.5")
@@ -186,13 +183,10 @@ proc InitPlots() =
   #************************************************************************
   # PLOT 4
   SetAttribute(plot[4], "TITLE", "Marks Mode")
-
-  #bug in IUP for Linux??? Works for Windows(wine+MingW)
-  #SetAttribute(plot[4], "AXS_XAUTOMIN", "NO")
-  #SetAttribute(plot[4], "AXS_XAUTOMAX", "NO")
-  #SetAttribute(plot[4], "AXS_YAUTOMIN", "NO")
-  #SetAttribute(plot[4], "AXS_YAUTOMAX", "NO")
-
+  SetAttribute(plot[4], "AXS_XAUTOMIN", "NO")
+  SetAttribute(plot[4], "AXS_XAUTOMAX", "NO")
+  SetAttribute(plot[4], "AXS_YAUTOMIN", "NO")
+  SetAttribute(plot[4], "AXS_YAUTOMAX", "NO")
   SetAttribute(plot[4], "AXS_XMIN", "0")
   SetAttribute(plot[4], "AXS_XMAX", "0.011")
   SetAttribute(plot[4], "AXS_YMIN", "0")
