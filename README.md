@@ -11,6 +11,8 @@ For code explanation and more information visit <https://www.tecgraf.puc-rio.br/
   - example2_3.nim : Adding Interaction
   - example2_4.nim : Adding Layout Elements
   - example2_5.nim : Improving the Layout
+  - example2_5_niupext.nim : Improving the Layout, using module
+    `niupext`
 
 - Simple Notepad
   - example3_1.nim : Main Dialog
@@ -25,6 +27,7 @@ For code explanation and more information visit <https://www.tecgraf.puc-rio.br/
   - example3_10.nim : Dynamic Layout
   - example3_11.nim : External Help
   - simple_notepad.nim : Final Considerations
+  - simple_notepad_niupext.nim : Final Considerations, using module `niupext`
 [![simple notepad](https://raw.githubusercontent.com/dariolah/nim-iup-examples/master/screenshots/simple_notepad.png)](#simple-notepad)
   - scintilla_notepad.nim : Version with IupScintilla instead of IupText
 [![scintilla notepad](https://raw.githubusercontent.com/dariolah/nim-iup-examples/master/screenshots/scintilla_notepad.png)](#scintilla-notepad)

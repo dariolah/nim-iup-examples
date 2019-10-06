@@ -4,6 +4,7 @@ EXAMPLES=\
 	example2_3.nim \
 	example2_4.nim \
 	example2_5.nim \
+	example2_5_niupext.nim \
 	example3_10.nim \
 	example3_11.nim \
 	example3_1.nim \
@@ -16,6 +17,7 @@ EXAMPLES=\
 	example3_8.nim \
 	example3_9.nim \
         simple_notepad.nim \
+	simple_notepad_niupext.nim \
         scintilla_notepad.nim \
 	example4_1.nim \
 	example4_2.nim \
