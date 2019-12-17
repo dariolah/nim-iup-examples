@@ -100,16 +100,16 @@ proc WebBrowserTest() =
   SetAttributeHandle(dlg, "DEFAULTENTER", btLoad)
 
   SetAttribute(txt, "EXPAND", "HORIZONTAL")
-  discard SetCallback(btLoad, "ACTION", cast[Icallback](load_cb))
-  discard SetCallback(btReload, "ACTION", cast[Icallback](reload_cb))
-  discard SetCallback(btBack, "ACTION", cast[Icallback](back_cb))
-  discard SetCallback(btForward, "ACTION", cast[Icallback](forward_cb))
-  discard SetCallback(btStop, "ACTION", cast[Icallback](stop_cb))
+  SetCallback(btLoad, "ACTION", cast[Icallback](load_cb))
+  SetCallback(btReload, "ACTION", cast[Icallback](reload_cb))
+  SetCallback(btBack, "ACTION", cast[Icallback](back_cb))
+  SetCallback(btForward, "ACTION", cast[Icallback](forward_cb))
+  SetCallback(btStop, "ACTION", cast[Icallback](stop_cb))
 
-  discard SetCallback(web, "NEWWINDOW_CB", cast[Icallback](newwindow_cb))
-  discard SetCallback(web, "NAVIGATE_CB", cast[Icallback](navigate_cb))
-  discard SetCallback(web, "ERROR_CB", cast[Icallback](error_cb))
-  discard SetCallback(web, "COMPLETED_CB", cast[Icallback](completed_cb))
+  SetCallback(web, "NEWWINDOW_CB", cast[Icallback](newwindow_cb))
+  SetCallback(web, "NAVIGATE_CB", cast[Icallback](navigate_cb))
+  SetCallback(web, "ERROR_CB", cast[Icallback](error_cb))
+  SetCallback(web, "COMPLETED_CB", cast[Icallback](completed_cb))
 
   #Shows dialog
   discard Show(dlg)
