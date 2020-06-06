@@ -6,28 +6,21 @@
 import niup
 import niupext
 import strformat
-import streams
 
 # Callback called when a leaf is added by the menu.
 proc addleaf():int =
   let
-    strm {.global.} = newStringStream("")
     tree = GetHandle("tree")
     id = GetInt(tree,"VALUE")
-  strm.write(fmt"ADDLEAF{id}")
-  let attr = strm.readAll()
-  SetAttribute(tree,attr.cstring,"");
+  SetAttributeId(tree,"ADDLEAF", id, "");
   return IUP_DEFAULT
 
 # Callback called when a branch is added by the menu.
 proc addbranch():int =
   let
-    strm {.global.} = newStringStream("")
     tree = GetHandle("tree")
     id = GetInt(tree,"VALUE")
-  strm.write(fmt"ADDBRANCH{id}")
-  let attr = strm.readAll()
-  SetAttribute(tree,attr.cstring,"");
+  SetAttributeId(tree,"ADDBRANCH", id, "");
   return IUP_DEFAULT
 
 # Callback called when a node is removed by the menu
@@ -116,20 +109,15 @@ proc rightclick_cb(h:PIhandle, id:int):int =
 proc init_tree() =
   let tree = Tree()
 
-  SetCallback(tree, "EXECUTELEAF_CB", cast[Icallback]( executeleaf_cb))
-  SetCallback(tree, "RENAME_CB", cast[Icallback]( rename_cb))
-  SetCallback(tree, "BRANCHCLOSE_CB", cast[Icallback]( branchclose_cb))
-  SetCallback(tree, "BRANCHOPEN_CB", cast[Icallback]( branchopen_cb))
-  SetCallback(tree, "DRAGDROP_CB", cast[Icallback]( dragdrop_cb))
-  SetCallback(tree, "RIGHTCLICK_CB", cast[Icallback]( rightclick_cb))
-  SetCallback(tree, "K_ANY", cast[Icallback]( k_any_cb))
-
-  #SetAttribute(tree, "FONT","COURIER_NORMAL")
-  #SetAttribute(tree, "CTRL","YES")
-  #SetAttribute(tree, "SHIFT","YES")
-  #SetAttribute(tree, "ADDEXPANDED", "NO")
-  #SetAttribute(tree, "SHOWDRAGDROP", "YES")
-  SetAttribute(tree, "SHOWRENAME", "YES")
+  withPIhandle tree:
+    cb "EXECUTELEAF_CB" executeleaf_cb
+    cb "RENAME_CB" rename_cb
+    cb "BRANCHCLOSE_CB" branchclose_cb
+    cb "BRANCHOPEN_CB" branchopen_cb
+    cb "DRAGDROP_CB" dragdrop_cb
+    cb "RIGHTCLICK_CB" rightclick_cb
+    cb "K_ANY" k_any_cb
+    "SHOWRENAME" "YES"
 
   SetHandle("tree",tree)
 
@@ -147,18 +135,19 @@ proc init_dlg() =
 proc init_tree_atributes() =
   let tree = GetHandle("tree")
 
-  SetAttribute(tree, "TITLE","Figures")
-  SetAttribute(tree, "ADDBRANCH","3D")
-  SetAttribute(tree, "ADDBRANCH","2D")
-  SetAttribute(tree, "ADDLEAF","test")
-  SetAttribute(tree, "ADDBRANCH1","parallelogram")
-  SetAttribute(tree, "ADDLEAF2","diamond")
-  SetAttribute(tree, "ADDLEAF2","square")
-  SetAttribute(tree, "ADDBRANCH1","triangle")
-  SetAttribute(tree, "ADDLEAF2","scalenus")
-  SetAttribute(tree, "ADDLEAF2","isoceles")
-  SetAttribute(tree, "ADDLEAF2","equilateral")
-  SetAttribute(tree, "VALUE","6")
+  withPIhandle tree:
+    "TITLE" "Figures"
+    "ADDBRANCH" "3D"
+    "ADDBRANCH" "2D"
+    "ADDLEAF" "test"
+    "ADDBRANCH1" "parallelogram"
+    "ADDLEAF2" "diamond"
+    "ADDLEAF2" "square"
+    "ADDBRANCH1" "triangle"
+    "ADDLEAF2" "scalenus"
+    "ADDLEAF2" "isoceles"
+    "ADDLEAF2" "equilateral"
+    "VALUE" "6"
 
 proc mainProc =
   niupext.Open()
