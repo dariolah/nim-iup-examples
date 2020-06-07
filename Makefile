@@ -29,6 +29,7 @@ EXAMPLES=\
 	matrixlist.nim \
 	matrix.nim \
 	tree.nim \
+	flattree.nim \
 	webbrowser.nim \
 	plot \
 	version
