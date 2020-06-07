@@ -443,10 +443,10 @@ proc init_tree_nodes() =
     tree = GetHandle("flattree")
     u8 = ""
 
-  if GetInt(nil, "UTF8MODE") == 1:
-    u8 = "Other (çãõáóé)"
+  if GetInt(nil, "UTF8MODE") != 0:
+    u8 = "Other (UTF-8 😁)"
   else:
-    u8 = "Other (no UTF8 :()"
+    u8 = "Other (no UTF8)"
 
   # create from top to bottom
   withPIhandle tree:
@@ -657,6 +657,9 @@ proc FlatTreeTest() =
 
 proc mainProc =
   niupext.Open()
+
+  when defined(Linux):
+    SetGlobal("UTF8MODE", "YES")
 
   FlatTreeTest()
 
