@@ -227,7 +227,7 @@ proc canvas_action_cb(canvas:PIhandle):cint =
 
   # draw the background
   discard scanf($background, "$i $i $i", ri, gi, bi)
-  cdCanvasBackground(cd_canvas, cdEncodeColor(ri.cuchar, gi.cuchar, bi.cuchar))
+  cdCanvasBackground(cd_canvas, cdEncodeColor(ri.uint8, gi.uint8, bi.uint8))
   cdCanvasClear(cd_canvas)
 
   # draw the image at the center of the canvas
@@ -416,7 +416,7 @@ proc item_print_action_cb(item_print:PIhandle):cint =
 
   # draw the background
   discard scanf($background, "$i $i $i", ri, gi, bi)
-  cdCanvasBackground(cd_canvas, cdEncodeColor(ri.cuchar, gi.cuchar, bi.cuchar))
+  cdCanvasBackground(cd_canvas, cdEncodeColor(ri.uint8, gi.uint8, bi.uint8))
   cdCanvasClear(cd_canvas)
 
   # draw the image at the center of the canvas

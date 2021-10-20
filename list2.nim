@@ -46,7 +46,7 @@ proc load_image_Tecgraf():PIhandle =
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 154, 156, 158, 1, 46, 50, 55, 83, 82, 89, 102, 123, 106, 116, 136, 51, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
       ]
 
-    let p_imgdata = cast[ptr cuchar](unsafeAddr(imgdata))
+    let p_imgdata = cast[ptr uint8](unsafeAddr(imgdata))
     image = ImageRGBA(32, 32, p_imgdata)
     SetHandle("Tecgraf", image)
 
@@ -75,7 +75,7 @@ proc load_image_LogoTecgraf():PIhandle =
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 51, 57, 67, 118, 115, 128, 152, 170, 127, 140, 164, 17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
       ]
 
-    let p_imgdata = cast[ptr cuchar](unsafeAddr(imgdata))
+    let p_imgdata = cast[ptr uint8](unsafeAddr(imgdata))
     image = ImageRGBA(16, 16, p_imgdata)
     SetHandle("LogoTecgraf", image)
 
@@ -102,7 +102,7 @@ proc load_image_Test():PIhandle =
     5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
     ]
 
-  let p_imgdata = cast[ptr cuchar](unsafeAddr(imgdata))
+  let p_imgdata = cast[ptr uint8](unsafeAddr(imgdata))
   let image = Image(16, 16, p_imgdata)
   SetAttribute(image, "0", "BGCOLOR")
   SetAttribute(image, "1", "255 0 0")

@@ -147,7 +147,7 @@ proc create_matrix():PIhandle =
   SetAttribute(mat, "4:2", "60")
   SetAttribute(mat, "SHOWFILLVALUE", "Yes")
 
-  let p_image_data_32 = cast[ptr cuchar](unsafeAddr(image_data_32))
+  let p_image_data_32 = cast[ptr uint8](unsafeAddr(image_data_32))
   let image = ImageRGBA(TEST_IMAGE_SIZE, TEST_IMAGE_SIZE, p_image_data_32)
   SetAttribute(mat, "TYPE4:3", "IMAGE")
   SetAttributeHandle(mat, "4:3", image)

@@ -63,7 +63,7 @@ proc load_medal_images()=
       0,0,0,0,0,3,3,0,0,2,2,4,0,0,0,0
       ]
 
-  let image_gold = Image(16, 16, cast[ptr cuchar](unsafeAddr(img_gold)))
+  let image_gold = Image(16, 16, cast[ptr uint8](unsafeAddr(img_gold)))
   SetAttribute(image_gold, "0", "BGCOLOR")
   SetAttribute(image_gold, "1", "128 0 0")
   SetAttribute(image_gold, "2", "128 128 0")
@@ -71,7 +71,7 @@ proc load_medal_images()=
   SetAttribute(image_gold, "4", "255 255 0")
   SetHandle("IMGGOLD", image_gold)
 
-  let image_silver = Image(16, 16, cast[ptr cuchar](unsafeAddr(img_silver)))
+  let image_silver = Image(16, 16, cast[ptr uint8](unsafeAddr(img_silver)))
   SetAttribute(image_silver, "0", "BGCOLOR")
   SetAttribute(image_silver, "1", "0 128 128")
   SetAttribute(image_silver, "2", "128 128 128")
@@ -79,7 +79,7 @@ proc load_medal_images()=
   SetAttribute(image_silver, "4", "255 255 255")
   SetHandle("IMGSILVER", image_silver)
 
-  let image_bronze = Image(16, 16, cast[ptr cuchar](unsafeAddr(img_bronze)))
+  let image_bronze = Image(16, 16, cast[ptr uint8](unsafeAddr(img_bronze)))
   SetAttribute(image_bronze, "0", "BGCOLOR")
   SetAttribute(image_bronze, "1", "128 0 0")
   SetAttribute(image_bronze, "2", "0 128 0")

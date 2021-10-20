@@ -28,7 +28,7 @@ proc load_image_LogoTecgraf(): PIHandle =
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 51, 57, 67, 118, 115, 128, 152, 170, 127, 140, 164, 17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     ]
 
-  return ImageRGBA(16, 16, cast[ptr cuchar](unsafeAddr(imgdata)))
+  return ImageRGBA(16, 16, cast[ptr uint8](unsafeAddr(imgdata)))
 
 const TEST_IMAGE_SIZE=16
 
@@ -53,7 +53,7 @@ proc load_image_TestImage(): PIHandle =
       5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
     ]
 
-  let image = Image(TEST_IMAGE_SIZE, TEST_IMAGE_SIZE, cast[ptr cuchar](unsafeAddr(image_data_8)))
+  let image = Image(TEST_IMAGE_SIZE, TEST_IMAGE_SIZE, cast[ptr uint8](unsafeAddr(image_data_8)))
   withPIhandle image:
     "0" "BGCOLOR"
     "1" "255 0 0"

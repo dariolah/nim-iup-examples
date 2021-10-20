@@ -46,7 +46,7 @@ proc load_image_Tecgraf():PIhandle =
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 154, 156, 158, 1, 46, 50, 55, 83, 82, 89, 102, 123, 106, 116, 136, 51, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
       ]
 
-    let p_imgdata = cast[ptr cuchar](unsafeAddr(imgdata))
+    let p_imgdata = cast[ptr uint8](unsafeAddr(imgdata))
     image = ImageRGBA(32, 32, p_imgdata)
     SetHandle("Tecgraf", image)
 
@@ -99,7 +99,7 @@ proc load_image_LogoTecgraf():PIhandle =
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 51, 57, 67, 118, 115, 128, 152, 170, 127, 140, 164, 17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
       ]
 
-    let p_imgdata = cast[ptr cuchar](unsafeAddr(imgdata))
+    let p_imgdata = cast[ptr uint8](unsafeAddr(imgdata))
     image = ImageRGBA(16, 16, p_imgdata)
     SetHandle("LogoTecgraf", image)
 
@@ -166,7 +166,7 @@ proc load_medal_images() =
     0,0,0,0,0,3,3,0,0,2,2,4,0,0,0,0
     ]
 
-  let p_img_gold = cast[ptr cuchar](unsafeAddr(img_gold))
+  let p_img_gold = cast[ptr uint8](unsafeAddr(img_gold))
   let image_gold = Image(16, 16, p_img_gold)
   SetAttribute(image_gold, "0", "BGCOLOR")
   SetAttribute(image_gold, "1", "128 0 0")
@@ -175,7 +175,7 @@ proc load_medal_images() =
   SetAttribute(image_gold, "4", "255 255 0")
   SetHandle("IMGGOLD", image_gold)
 
-  let p_img_silver = cast[ptr cuchar](unsafeAddr(img_silver))
+  let p_img_silver = cast[ptr uint8](unsafeAddr(img_silver))
   let image_silver = Image(16, 16, p_img_silver)
   SetAttribute(image_silver, "0", "BGCOLOR")
   SetAttribute(image_silver, "1", "0 128 128")
@@ -184,7 +184,7 @@ proc load_medal_images() =
   SetAttribute(image_silver, "4", "255 255 255")
   SetHandle("IMGSILVER", image_silver)
 
-  let p_img_bronze = cast[ptr cuchar](unsafeAddr(img_bronze))
+  let p_img_bronze = cast[ptr uint8](unsafeAddr(img_bronze))
   let image_bronze = Image(16, 16, p_img_bronze)
   SetAttribute(image_bronze, "0", "BGCOLOR")
   SetAttribute(image_bronze, "1", "128 0 0")
@@ -240,8 +240,8 @@ proc mainProc =
 
   list_dropdown = List (nil)
   SetAttributes(list_dropdown, "1=\"Less than US$ 1000\", 2=\"US$ 2000\", 3=\"US$ 5000\", 4=\"US$ 10000\", 5=\"US$ 20000\", 6=\"US$ 50000\", 7=\"More than US$ 100000\",SHOWIMAGE=YES, DROPDOWN=YES, VISIBLEITEMS=3".cstring)
-  SetAttributeHandle(list_dropdown, "IMAGE1", ImageRGB(20, 20, cast[ptr cuchar](unsafeAddr(image_data_24))))
-  SetAttributeHandle(list_dropdown, "IMAGE2", ImageRGB(20, 20, cast[ptr cuchar](unsafeAddr(image_data_24))))
+  SetAttributeHandle(list_dropdown, "IMAGE1", ImageRGB(20, 20, cast[ptr uint8](unsafeAddr(image_data_24))))
+  SetAttributeHandle(list_dropdown, "IMAGE2", ImageRGB(20, 20, cast[ptr uint8](unsafeAddr(image_data_24))))
   SetAttributeHandle(list_dropdown, "IMAGE3", load_image_Tecgraf())
 
   frm_prize = Frame (list_dropdown)
