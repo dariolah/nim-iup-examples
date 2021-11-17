@@ -2,6 +2,7 @@
 # https://www.tecgraf.puc-rio.br/iup/examples/tutorial/example3_10.c
 
 import niup
+import niup/niupext
 import strformat
 import unicode
 import os
@@ -696,7 +697,7 @@ proc create_main_dialog(config:PIhandle):PIhandle =
   niup.SetAttribute(multitext, "DIRTY", "NO")
   SetCallback(multitext, "CARET_CB", cast[ICallback](multitext_caret_cb))
   SetCallback(multitext, "VALUECHANGED_CB", cast[ICallback](multitext_valuechanged_cb))
-  SetCallback(multitext, "DROPFILES_CB", cast[ICallback](dropfiles_cb))
+  niupext.SetCallback(multitext, "DROPFILES_CB", dropfiles_cb)
 
   lbl_statusbar = niup.Label("Lin 1, Col 1")
   niup.SetAttribute(lbl_statusbar, "NAME", "STATUSBAR")
@@ -893,7 +894,7 @@ proc create_main_dialog(config:PIhandle):PIhandle =
   niup.SetAttributeHandle(dlg, "MENU", menu)
   niup.SetAttribute(dlg, "SIZE", "HALFxHALF")
   SetCallback(dlg, "CLOSECB", cast[ICallback](item_exit_action_cb))
-  SetCallback(dlg, "DROPFILES_CB", cast[Icallback](dropfiles_cb))
+  niupext.SetCallback(dlg, "DROPFILES_CB", dropfiles_cb)
 
   niup.SetAttribute(dlg, "CONFIG", cast[cstring](config))
 

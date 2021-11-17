@@ -2,7 +2,7 @@
 # https://www.tecgraf.puc-rio.br/iup/examples/tutorial/example3_10.c
 
 import niup
-import niupext
+import niup/niupext
 import strformat
 import unicode
 import os
@@ -998,7 +998,7 @@ proc create_main_dialog(config:PIhandle):PIhandle =
   return dlg
 
 proc mainProc =
-  Open()
+  niup.Open()
   ImageLibOpen()
 
   let config:PIhandle = Config()

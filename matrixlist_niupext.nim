@@ -1,5 +1,5 @@
 import niup
-import niupext
+import niup/niupext
 import strformat
 
 proc imagevaluechanged_cb(self:PIhandle, item:int, state:int):int =
@@ -19,7 +19,7 @@ proc listaction_cb(self:PIhandle, item:int, state:int):int =
   return IUP_DEFAULT
 
 proc mainProc =
-  Open()
+  niup.Open()
   ControlsOpen()
 
   let mlist = MatrixList()

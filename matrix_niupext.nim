@@ -1,5 +1,5 @@
 import niup
-import niupext
+import niup/niupext
 import strformat
 
 const TEST_IMAGE_SIZE=20
@@ -134,7 +134,7 @@ proc MatrixTest() =
   ShowXY(dlg, IUP_CENTER, IUP_CENTER)
 
 proc mainProc =
-  Open()
+  niup.Open()
   ControlsOpen()
   ImageLibOpen()
 

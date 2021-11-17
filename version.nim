@@ -2,7 +2,7 @@ import niup
 import niupext
 import strformat
 proc mainProc =
-  Open()
+  niup.Open()
 
   let
     ver = Version()
