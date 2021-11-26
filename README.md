@@ -5,6 +5,10 @@ generated FFI bindings for latest IUP.
 
 For code explanation and more information visit <https://www.tecgraf.puc-rio.br/iup/>
 
+## Strong typed API using 'niup' module
+- button: Button, Text, Label, Vbox, Dialog, Image
+
+## C-like API examples using 'niupc' module
 - Hello World
   - example2_1.nim : Initialization
   - example2_2.nim : Creating a Dialog
