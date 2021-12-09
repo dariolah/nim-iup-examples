@@ -21,7 +21,6 @@ proc k_any(self: PIhandle, c: cint): cint {.cdecl.} =
 
 proc action(self: PIhandle, c: cint, after: cstring): cint {.cdecl.} =
   if c != 0:
-    let ch = char(c)
     password.add(char(c))
     pwd.value = password
   return K_asterisk
@@ -37,8 +36,6 @@ proc mainProc() =
   pwd = Text()
   pwd.size("200x")
   pwd.readonly = true
-
-  let lb = Label("unsused, WTF")  # without extra control crashes
 
   let dlg = Dialog(Vbox(text, pwd))
   dlg.title = "IupText"
