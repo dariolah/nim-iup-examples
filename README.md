@@ -7,6 +7,10 @@ For code explanation and more information visit <https://www.tecgraf.puc-rio.br/
 
 ## Strong typed API using 'niup' module
 - button: Button, Text, Label, Vbox, Dialog, Image
+- text
+- textformat
+- multiline1
+- multiline2: MultiLine, List dropdown
 
 ## C-like API examples using 'niupc' module
 - Hello World

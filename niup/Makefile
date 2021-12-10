@@ -3,9 +3,9 @@ OUTDIR=/mnt/ssd/tmp/build-nim-iup-examples-nim-Debug/
 TARGETS=\
 	button \
 	text \
-	textformat
-	#$(OUTDIR)/multiline1 \
-	#$(OUTDIR)/multiline2 \
+	textformat \
+	multiline1 \
+	multiline2 
 
 
 OBJS:=$(addprefix $(OUTDIR)/,$(TARGETS))
