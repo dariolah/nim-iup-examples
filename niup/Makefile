@@ -5,7 +5,8 @@ TARGETS=\
 	text \
 	textformat \
 	multiline1 \
-	multiline2 
+	multiline2 \
+        list1	
 
 
 OBJS:=$(addprefix $(OUTDIR)/,$(TARGETS))
