@@ -12,6 +12,7 @@ For code explanation and more information visit <https://www.tecgraf.puc-rio.br/
 - multiline1
 - multiline2: MultiLine, List dropdown
 - list1: List, drag'n'drop
+- timer
 
 ## C-like API examples using 'niupc' module
 - Hello World
