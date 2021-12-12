@@ -115,7 +115,9 @@ proc k_f2(ih: PIhandle, c: cint): cint {.cdecl.} =
   return IUP_DEFAULT
 
 proc file_open() =
-  var filename: cstring = cast[cstring](create(char, 1000))
+  var
+    buffer: array[1000, char]
+    filename = cstring(addr buffer)
   GetFile(filename)  #// test key after dlg in multiline
   echo filename
 
