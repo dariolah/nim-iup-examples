@@ -13,6 +13,7 @@ For code explanation and more information visit <https://www.tecgraf.puc-rio.br/
 - multiline2: MultiLine, List dropdown
 - list1: List, drag'n'drop
 - timer
+- dialog_ballon: window/dialog with irregular shape based on image
 
 ## C-like API examples using 'niupc' module
 - Hello World

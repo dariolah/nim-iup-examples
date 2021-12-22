@@ -7,7 +7,8 @@ TARGETS=\
 	multiline1 \
 	multiline2 \
         list1 \
-	timer	
+	timer \
+	dialog_ballon	
 
 
 OBJS:=$(addprefix $(OUTDIR)/,$(TARGETS))
