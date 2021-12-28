@@ -14,6 +14,7 @@ For code explanation and more information visit <https://www.tecgraf.puc-rio.br/
 - list1: List, drag'n'drop
 - timer
 - dialog_ballon: window/dialog with irregular shape based on image
+[![dialogballon](https://raw.githubusercontent.com/dariolah/nim-iup-examples/master/screenshots/dialog_ballon.png)](#dialogballon)
 
 ## C-like API examples using 'niupc' module
 - Hello World
