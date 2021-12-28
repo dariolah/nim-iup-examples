@@ -300,8 +300,8 @@ proc TextTest() =
                 Hbox(btn_def_enter, btn_def_esc, btn_active, btn_remformat, btn_overwrite)))
   dlg.k_cupperO = file_open
   dlg.title = "IupText Test"
-  dlg.margin = "10x10"
-  dlg.gap = "5"
+  dlg.margin(10, 10)
+  dlg.gap = 5
   dlg.defaultenter = btn_def_enter
   dlg.defaultesc = btn_def_esc
   dlg.shrink = true
