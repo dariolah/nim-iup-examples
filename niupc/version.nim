@@ -1,5 +1,6 @@
 import niup
-import niupext
+import niup/niupc
+import niup/niupext
 import strformat
 proc mainProc =
   niup.Open()
