@@ -1,5 +1,5 @@
-import niup
-import niupext
+import niup/niupc
+import niup/niupext
 
 proc load_medal_images()=
   let
