@@ -5,6 +5,7 @@
 #                  - right panel containg tabbed plots
 #       Remark : depend on libs IUP, CD, IUP_PLOT
 
+import niup
 import niup/niupc
 import niup/niupext
 import strformat

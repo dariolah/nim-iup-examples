@@ -2,6 +2,7 @@
 # https://www.tecgraf.puc-rio.br/iup/examples/tutorial/example2_4.c
 
 import niup
+import niup/niupc
 
 proc btn_exit_cb(ih:PIhandle):cint {.cdecl.}=
   # Exits the main loop
@@ -14,12 +15,12 @@ proc mainProc =
   var argv:cstringArray=nil
   Open(argc, addr argv)
 
-  label =  niup.Label("Hello world from IUP.");
+  label =  niupc.Label("Hello world from IUP.");
   button = niup.Button("OK", nil)
   vbox = niup.Vbox(label,
                   button,
                   nil)
-  dlg = niup.Dialog(vbox)
+  dlg = niupc.Dialog(vbox)
   niup.SetAttribute(dlg, "TITLE", "Hello World 4")
 
   # Registers callbacks

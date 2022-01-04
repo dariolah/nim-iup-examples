@@ -1,4 +1,5 @@
 import niup
+import niup/niupc
 import niup/niupext
 import strformat
 
