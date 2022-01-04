@@ -1,6 +1,7 @@
 # https://www.tecgraf.puc-rio.br/iup/en/tutorial/tutorial3.html
 # https://webserver2.tecgraf.puc-rio.br/iup/examples/tutorial/scintilla_notepad/scintilla_notepad.c
 
+import niup/niupc
 import niup
 import strformat
 import unicode
