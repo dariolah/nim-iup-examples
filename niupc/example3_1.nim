@@ -2,6 +2,7 @@
 # https://www.tecgraf.puc-rio.br/iup/examples/tutorial/example3_1.c
 
 import niup
+import niup/niupc
 
 proc mainProc =
   var dlg, multitext, vbox: niup.PIhandle
@@ -16,12 +17,12 @@ proc mainProc =
   niup.SetAttribute(multitext, "MULTILINE", "YES")
   niup.SetAttribute(multitext, "EXPAND", "YES")
 
-  dlg = niup.Dialog(vbox)
-  niup.SetAttribute(dlg, "TITLE", "Simple Notepad")
-  niup.SetAttribute(dlg, "SIZE", "QUARTERxQUARTER");
+  dlg = niupc.Dialog(vbox)
+  niupc.SetAttribute(dlg, "TITLE", "Simple Notepad")
+  niupc.SetAttribute(dlg, "SIZE", "QUARTERxQUARTER");
 
   ShowXY(dlg, niup.IUP_CENTER, niup.IUP_CENTER)
-  niup.SetAttribute(dlg, "USERSIZE", nil);
+  niupc.SetAttribute(dlg, "USERSIZE", nil);
 
   MainLoop()
 
