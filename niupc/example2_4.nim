@@ -2,7 +2,6 @@
 # https://www.tecgraf.puc-rio.br/iup/examples/tutorial/example2_4.c
 
 import niup
-import niup/niupc
 
 proc btn_exit_cb(ih:PIhandle):cint {.cdecl.}=
   # Exits the main loop
@@ -16,8 +15,8 @@ proc mainProc =
   Open(argc, addr argv)
 
   label =  niupc.Label("Hello world from IUP.");
-  button = niup.Button("OK", nil)
-  vbox = niup.Vbox(label,
+  button = niupc.Button("OK", nil)
+  vbox = niupc.Vbox(label,
                   button,
                   nil)
   dlg = niupc.Dialog(vbox)

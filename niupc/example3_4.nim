@@ -1,7 +1,7 @@
 # https://www.tecgraf.puc-rio.br/iup/en/tutorial/tutorial3.html
 # https://www.tecgraf.puc-rio.br/iup/examples/tutorial/example3_4.c
 
-import niup/niupc
+import niup
 import strformat
 import unicode
 
