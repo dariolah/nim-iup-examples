@@ -2,7 +2,6 @@
 # https://www.tecgraf.puc-rio.br/iup/examples/tutorial/example3_1.c
 
 import niup
-import niup/niupc
 
 proc mainProc =
   var dlg, multitext, vbox: niup.PIhandle
