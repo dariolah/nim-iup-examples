@@ -1,5 +1,5 @@
-import niup
-import niupext
+import niup/niupc
+import niup/niupext
 import strformat
 
 proc imagevaluechanged_cb(self:PIhandle, item:int, state:int):int =

@@ -14,12 +14,12 @@ proc mainProc =
   var argv:cstringArray=nil
   Open(argc, addr argv)
 
-  label =  niup.Label("Hello world from IUP.");
-  button = niup.Button("OK", nil)
-  vbox = niup.Vbox(label,
+  label =  niupc.Label("Hello world from IUP.");
+  button = niupc.Button("OK", nil)
+  vbox = niupc.Vbox(label,
                   button,
                   nil)
-  dlg = niup.Dialog(vbox)
+  dlg = niupc.Dialog(vbox)
   niup.SetAttribute(dlg, "TITLE", "Hello World 4")
 
   # Registers callbacks

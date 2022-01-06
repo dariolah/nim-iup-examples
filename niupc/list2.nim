@@ -3,8 +3,8 @@
 #  The first is a simple list, the second one is a multiple list and the last one is a drop-down list.
 #  The second list has a callback associated.
 
-import niup
-import niupext
+import niup/niupc
+import niup/niupext
 import strformat
 
 proc load_image_Tecgraf():PIhandle =

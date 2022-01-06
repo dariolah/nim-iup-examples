@@ -1,6 +1,5 @@
 # https://www.tecgraf.puc-rio.br/iup/en/tutorial/tutorial3.html
 # https://www.tecgraf.puc-rio.br/iup/examples/tutorial/example3_2.c
-
 import niup
 
 proc exit_cb(ih:PIhandle):cint {.cdecl.}=
@@ -15,35 +14,35 @@ proc mainProc =
   var argv:cstringArray=nil
   Open(argc, addr argv)
 
-  multitext =  niup.Text(nil)
-  niup.SetAttribute(multitext, "MULTILINE", "YES")
-  niup.SetAttribute(multitext, "EXPAND", "YES")
+  multitext =  niupc.Text(nil)
+  niupc.SetAttribute(multitext, "MULTILINE", "YES")
+  niupc.SetAttribute(multitext, "EXPAND", "YES")
 
-  item_open = niup.Item("Open", nil)
-  item_saveas = niup.Item("Save As", nil)
-  item_exit = niup.Item("Exit", nil)
+  item_open = niupc.Item("Open", nil)
+  item_saveas = niupc.Item("Save As", nil)
+  item_exit = niupc.Item("Exit", nil)
   SetCallback(item_exit, "ACTION", cast[ICallback](exit_cb))
 
-  file_menu = niup.Menu(item_open,
+  file_menu = niupc.Menu(item_open,
                        item_saveas,
-                       niup.Separator(),
+                       niupc.Separator(),
                        item_exit,
                        nil)
 
-  sub1_menu = niup.Submenu("File", file_menu)
+  sub1_menu = niupc.Submenu("File", file_menu)
 
-  menu = niup.Menu(sub1_menu, nil)
+  menu = niupc.Menu(sub1_menu, nil)
 
-  vbox = niup.Vbox(multitext,
+  vbox = niupc.Vbox(multitext,
                   nil)
 
-  dlg = niup.Dialog(vbox)
-  niup.SetAttributeHandle(dlg, "MENU", menu)
-  niup.SetAttribute(dlg, "TITLE", "Simple Notepad")
-  niup.SetAttribute(dlg, "SIZE", "QUARTERxQUARTER");
+  dlg = niupc.Dialog(vbox)
+  niupc.SetAttributeHandle(dlg, "MENU", menu)
+  niupc.SetAttribute(dlg, "TITLE", "Simple Notepad")
+  niupc.SetAttribute(dlg, "SIZE", "QUARTERxQUARTER");
 
   ShowXY(dlg, niup.IUP_CENTER, niup.IUP_CENTER)
-  niup.SetAttribute(dlg, "USERSIZE", nil);
+  niupc.SetAttribute(dlg, "USERSIZE", nil);
 
   MainLoop()
 

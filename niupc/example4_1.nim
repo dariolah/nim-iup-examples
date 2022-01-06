@@ -1,8 +1,8 @@
 # https://www.tecgraf.puc-rio.br/iup/en/tutorial/tutorial4.html
 # https://www.tecgraf.puc-rio.br/iup/examples/tutorial/example4_1.c
 
-import niup
-import niupext
+import niup/niupc
+import niup/niupext
 import strformat
 import unicode
 import os
@@ -628,14 +628,14 @@ proc mainProc =
   var dlg, config: PIhandle
 
   niupext.Open()
-  niup.ImageLibOpen()
+  niupc.ImageLibOpen()
 
   niupext.InitConfig(config, "simple_paint")
 
   dlg = create_main_dialog(config)
 
   # show the dialog at the last position, with the last size
-  niup.ConfigDialogShow(config, dlg, "MainWindow")
+  niupc.ConfigDialogShow(config, dlg, "MainWindow")
 
   # open a file from the command line (allow file association in Windows)
   if paramCount() > 1 and paramStr(1) != "":
@@ -647,7 +647,7 @@ proc mainProc =
 
   MainLoop()
 
-  niup.Close()
+  niupc.Close()
 
 if isMainModule:
   mainProc()

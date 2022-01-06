@@ -2,9 +2,8 @@
 # Creates a tree with some branches and leaves.
 # Two callbacks are registered: one deletes marked nodes when the Del key is pressed,
 # and the other, called when the right mouse button is pressed, opens a menu with options.
-
-import niup
-import niupext
+import niup/niupc
+import niup/niupext
 import strformat
 
 proc load_image_LogoTecgraf(): PIHandle =
@@ -269,7 +268,7 @@ proc enterwindow_cb(ih:PIhandle):int =
   echo "ENTERWINDOW_CB()\n"
   return IUP_DEFAULT
 
-proc iupKeyCodeToName(code:int): cstring {.cdecl, importc: "iupKeyCodeToName", dynlib: niup.libiupimSONAME.}
+proc iupKeyCodeToName(code:int): cstring {.cdecl, importc: "iupKeyCodeToName", dynlib: niupc.libiupimSONAME.}
 
 proc k_any_cb(ih:PIhandle, c:int):int =
   if c == K_DEL:

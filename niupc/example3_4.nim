@@ -61,123 +61,123 @@ proc str_find(str:string, str_to_find:string, casesensitive:int): int =
   return -1
 
 proc item_open_action_cb(item_open:PIhandle): int =
-  let multitext = niup.GetDialogChild(item_open, "MULTITEXT")
-  let filedlg = niup.FileDlg()
-  niup.SetAttribute(filedlg, "DIALOGTYPE", "OPEN")
-  niup.SetAttribute(filedlg, "EXTFILTER", "Text Files|*.txt|All Files|*.*|")
+  let multitext = niupc.GetDialogChild(item_open, "MULTITEXT")
+  let filedlg = niupc.FileDlg()
+  niupc.SetAttribute(filedlg, "DIALOGTYPE", "OPEN")
+  niupc.SetAttribute(filedlg, "EXTFILTER", "Text Files|*.txt|All Files|*.*|")
 
   Popup(filedlg, IUP_CENTER, IUP_CENTER)
 
-  if niup.GetInt(filedlg, "STATUS") != -1:
-    let filename = niup.GetAttribute(filedlg, "VALUE")
+  if niupc.GetInt(filedlg, "STATUS") != -1:
+    let filename = niupc.GetAttribute(filedlg, "VALUE")
     try:
       let str = readFile($filename) # $ converts cstring to string
       # .string converts TaintedString to string
       if str.string != "":
-        niup.SetStrAttribute(multitext, "VALUE", str.string)
+        niupc.SetStrAttribute(multitext, "VALUE", str.string)
     except:
-      niup.Message("Error", fmt"Fail when reading from file: {filename}");
+      niupc.Message("Error", fmt"Fail when reading from file: {filename}");
 
-  niup.Destroy(filedlg)
-  return niup.IUP_DEFAULT
+  niupc.Destroy(filedlg)
+  return niupc.IUP_DEFAULT
 
 proc item_saveas_action_cb(item_saveas:PIhandle): int =
-  let multitext = niup.GetDialogChild(item_saveas, "MULTITEXT")
-  let filedlg = niup.FileDlg()
-  niup.SetAttribute(filedlg, "DIALOGTYPE", "SAVE")
-  niup.SetAttribute(filedlg, "EXTFILTER", "Text Files|*.txt|All Files|*.*|")
+  let multitext = niupc.GetDialogChild(item_saveas, "MULTITEXT")
+  let filedlg = niupc.FileDlg()
+  niupc.SetAttribute(filedlg, "DIALOGTYPE", "SAVE")
+  niupc.SetAttribute(filedlg, "EXTFILTER", "Text Files|*.txt|All Files|*.*|")
 
   Popup(filedlg, IUP_CENTER, IUP_CENTER)
 
-  if niup.GetInt(filedlg, "STATUS") != -1:
-    let filename = niup.GetAttribute(filedlg, "VALUE")
-    let str = niup.GetAttribute(multitext, "VALUE")
+  if niupc.GetInt(filedlg, "STATUS") != -1:
+    let filename = niupc.GetAttribute(filedlg, "VALUE")
+    let str = niupc.GetAttribute(multitext, "VALUE")
     try:
       writeFile($filename, $str)
     except:
-      niup.Message("Error", fmt"Fail when writing to file: {filename}");
+      niupc.Message("Error", fmt"Fail when writing to file: {filename}");
 
-  niup.Destroy(filedlg)
-  return niup.IUP_DEFAULT
+  niupc.Destroy(filedlg)
+  return niupc.IUP_DEFAULT
 
 proc goto_ok_action_cb(bt_ok:PIhandle): int =
-  let line_count = niup.GetInt(bt_ok, "TEXT_LINECOUNT")
-  let txt = niup.GetDialogChild(bt_ok, "LINE_TEXT")
-  let line = niup.GetInt(txt, "VALUE")
+  let line_count = niupc.GetInt(bt_ok, "TEXT_LINECOUNT")
+  let txt = niupc.GetDialogChild(bt_ok, "LINE_TEXT")
+  let line = niupc.GetInt(txt, "VALUE")
   if line < 1 or line >= line_count:
-    niup.Message("Error", "Invalid line number.")
-    return niup.IUP_DEFAULT
+    niupc.Message("Error", "Invalid line number.")
+    return niupc.IUP_DEFAULT
 
-  niup.SetAttribute(niup.GetDialog(bt_ok), "STATUS", "1");
-  return niup.IUP_CLOSE
+  niupc.SetAttribute(niupc.GetDialog(bt_ok), "STATUS", "1");
+  return niupc.IUP_CLOSE
 
 proc goto_cancel_action_cb(bt_ok:PIhandle): int =
-  niup.SetAttribute(niup.GetDialog(bt_ok), "STATUS", "0")
+  niupc.SetAttribute(niupc.GetDialog(bt_ok), "STATUS", "0")
   return IUP_CLOSE
 
 proc item_goto_action_cb(item_goto:PIhandle): int =
-  let multitext = niup.GetDialogChild(item_goto, "MULTITEXT")
+  let multitext = niupc.GetDialogChild(item_goto, "MULTITEXT")
   var dlg, box, bt_ok, bt_cancel, txt, lbl: PIhandle
 
-  let line_count = niup.GetInt(multitext, "LINECOUNT")
+  let line_count = niupc.GetInt(multitext, "LINECOUNT")
 
-  lbl = niup.Label(nil)
-  niup.SetfAttribute(lbl, "TITLE", "Line Number [1-%d]:", line_count)
-  txt = niup.Text(nil)
-  niup.SetAttribute(txt, "MASK", IUP_MASK_UINT)  # unsigned integer numbers only
-  niup.SetAttribute(txt, "NAME", "LINE_TEXT")
-  niup.SetAttribute(txt, "VISIBLECOLUMNS", "20")
-  bt_ok = niup.Button("OK", nil)
-  niup.SetInt(bt_ok, "TEXT_LINECOUNT", line_count)
-  niup.SetAttribute(bt_ok, "PADDING", "10x2")
+  lbl = niupc.Label(nil)
+  niupc.SetfAttribute(lbl, "TITLE", "Line Number [1-%d]:", line_count)
+  txt = niupc.Text(nil)
+  niupc.SetAttribute(txt, "MASK", IUP_MASK_UINT)  # unsigned integer numbers only
+  niupc.SetAttribute(txt, "NAME", "LINE_TEXT")
+  niupc.SetAttribute(txt, "VISIBLECOLUMNS", "20")
+  bt_ok = niupc.Button("OK", nil)
+  niupc.SetInt(bt_ok, "TEXT_LINECOUNT", line_count)
+  niupc.SetAttribute(bt_ok, "PADDING", "10x2")
   SetCallback(bt_ok, "ACTION", cast[ICallback](goto_ok_action_cb))
-  bt_cancel = niup.Button("Cancel", nil)
+  bt_cancel = niupc.Button("Cancel", nil)
   SetCallback(bt_cancel, "ACTION", cast[ICallback](goto_cancel_action_cb))
-  niup.SetAttribute(bt_cancel, "PADDING", "10x2")
+  niupc.SetAttribute(bt_cancel, "PADDING", "10x2")
 
-  box = niup.Vbox(
+  box = niupc.Vbox(
     lbl,
     txt,
-    niup.SetAttributes(niup.Hbox(
-      niup.Fill(),
+    niupc.SetAttributes(niupc.Hbox(
+      niupc.Fill(),
       bt_ok,
       bt_cancel,
       nil), "NORMALIZESIZE=HORIZONTAL"),
     nil)
-  niup.SetAttribute(box, "MARGIN", "10x10")
-  niup.SetAttribute(box, "GAP", "5")
+  niupc.SetAttribute(box, "MARGIN", "10x10")
+  niupc.SetAttribute(box, "GAP", "5")
 
-  dlg = niup.Dialog(box)
-  niup.SetAttribute(dlg, "TITLE", "Go To Line")
-  niup.SetAttribute(dlg, "DIALOGFRAME", "Yes")
-  niup.SetAttributeHandle(dlg, "DEFAULTENTER", bt_ok)
-  niup.SetAttributeHandle(dlg, "DEFAULTESC", bt_cancel)
-  niup.SetAttributeHandle(dlg, "PARENTDIALOG", niup.GetDialog(item_goto))
+  dlg = niupc.Dialog(box)
+  niupc.SetAttribute(dlg, "TITLE", "Go To Line")
+  niupc.SetAttribute(dlg, "DIALOGFRAME", "Yes")
+  niupc.SetAttributeHandle(dlg, "DEFAULTENTER", bt_ok)
+  niupc.SetAttributeHandle(dlg, "DEFAULTESC", bt_cancel)
+  niupc.SetAttributeHandle(dlg, "PARENTDIALOG", niupc.GetDialog(item_goto))
 
   Popup(dlg, IUP_CENTERPARENT, IUP_CENTERPARENT)
 
-  if niup.GetInt(dlg, "STATUS") == 1:
-    let line = niup.GetInt(txt, "VALUE")
+  if niupc.GetInt(dlg, "STATUS") == 1:
+    let line = niupc.GetInt(txt, "VALUE")
     var pos:cint
-    niup.TextConvertLinColToPos(multitext, line, 0, pos)
-    niup.SetInt(multitext, "CARETPOS", pos)
-    niup.SetInt(multitext, "SCROLLTOPOS", pos)
+    niupc.TextConvertLinColToPos(multitext, line, 0, pos)
+    niupc.SetInt(multitext, "CARETPOS", pos)
+    niupc.SetInt(multitext, "SCROLLTOPOS", pos)
     SetFocus(multitext)
 
-  niup.Destroy(dlg)
+  niupc.Destroy(dlg)
 
   return IUP_DEFAULT
 
 proc find_next_action_cb(bt_next:PIhandle): int =
-  let multitext = cast[PIhandle](niup.GetAttribute(bt_next, "MULTITEXT"))
-  let str = niup.GetAttribute(multitext, "VALUE")
-  let find_pos = niup.GetInt(multitext, "FIND_POS")
+  let multitext = cast[PIhandle](niupc.GetAttribute(bt_next, "MULTITEXT"))
+  let str = niupc.GetAttribute(multitext, "VALUE")
+  let find_pos = niupc.GetInt(multitext, "FIND_POS")
 
-  let txt = niup.GetDialogChild(bt_next, "FIND_TEXT")
-  let str_to_find = niup.GetAttribute(txt, "VALUE")
+  let txt = niupc.GetDialogChild(bt_next, "FIND_TEXT")
+  let str_to_find = niupc.GetAttribute(txt, "VALUE")
 
-  let find_case = niup.GetDialogChild(bt_next, "FIND_CASE")
-  let casesensitive = niup.GetInt(find_case, "VALUE")
+  let find_case = niupc.GetDialogChild(bt_next, "FIND_CASE")
+  let casesensitive = niupc.GetInt(find_case, "VALUE")
 
   var pos:cint = cast[cint](str_find(substr($str,find_pos), $str_to_find, casesensitive))
   if pos >= 0:
@@ -193,118 +193,118 @@ proc find_next_action_cb(bt_next:PIhandle): int =
     # we need number of unicode characters
     let unicode_end_pos = unicode_pos + unicode.toRunes($str_to_find).len
 
-    niup.SetInt(multitext, "FIND_POS", cast[cint](end_pos))
+    niupc.SetInt(multitext, "FIND_POS", cast[cint](end_pos))
 
     SetFocus(multitext)
     # When using UTF-8 strings in GTK be aware that all attributes are indexed by characters,
     # NOT by byte index, because some characters in UTF-8 can use more than one byte
-    niup.SetfAttribute(multitext, "SELECTIONPOS", "%d:%d", unicode_pos, unicode_end_pos)
-    niup.TextConvertPosToLinCol(multitext, unicode_pos, lin, col)
-    niup.TextConvertLinColToPos(multitext, lin, 0, unicode_pos)  # position at col=0, just scroll lines
-    niup.SetInt(multitext, "SCROLLTOPOS", unicode_pos)
+    niupc.SetfAttribute(multitext, "SELECTIONPOS", "%d:%d", unicode_pos, unicode_end_pos)
+    niupc.TextConvertPosToLinCol(multitext, unicode_pos, lin, col)
+    niupc.TextConvertLinColToPos(multitext, lin, 0, unicode_pos)  # position at col=0, just scroll lines
+    niupc.SetInt(multitext, "SCROLLTOPOS", unicode_pos)
   else:
-    niup.Message("Warning", "Text not found.")
+    niupc.Message("Warning", "Text not found.")
 
-  return niup.IUP_DEFAULT
+  return niupc.IUP_DEFAULT
 
 proc find_close_action_cb(bt_close:PIhandle): int =
-  Hide(niup.GetDialog(bt_close))
-  return niup.IUP_DEFAULT
+  Hide(niupc.GetDialog(bt_close))
+  return niupc.IUP_DEFAULT
 
 proc item_find_action_cb(item_find:PIhandle): int =
-  var dlg = cast[PIhandle](niup.GetAttribute(item_find, "FIND_DIALOG"))
+  var dlg = cast[PIhandle](niupc.GetAttribute(item_find, "FIND_DIALOG"))
 
   if dlg == nil:
-    let multitext = niup.GetDialogChild(item_find, "MULTITEXT")
+    let multitext = niupc.GetDialogChild(item_find, "MULTITEXT")
     var box, bt_next, bt_close, txt, find_case:PIhandle
 
-    txt = niup.Text(nil)
-    niup.SetAttribute(txt, "NAME", "FIND_TEXT")
-    niup.SetAttribute(txt, "VISIBLECOLUMNS", "20")
-    find_case = niup.Toggle("Case Sensitive", nil)
-    niup.SetAttribute(find_case, "NAME", "FIND_CASE")
-    bt_next = niup.Button("Find Next", nil)
-    niup.SetAttribute(bt_next, "PADDING", "10x2")
+    txt = niupc.Text(nil)
+    niupc.SetAttribute(txt, "NAME", "FIND_TEXT")
+    niupc.SetAttribute(txt, "VISIBLECOLUMNS", "20")
+    find_case = niupc.Toggle("Case Sensitive", nil)
+    niupc.SetAttribute(find_case, "NAME", "FIND_CASE")
+    bt_next = niupc.Button("Find Next", nil)
+    niupc.SetAttribute(bt_next, "PADDING", "10x2")
     SetCallback(bt_next, "ACTION", cast[ICallback](find_next_action_cb))
-    bt_close = niup.Button("Close", nil)
+    bt_close = niupc.Button("Close", nil)
     SetCallback(bt_close, "ACTION", cast[ICallback](find_close_action_cb))
-    niup.SetAttribute(bt_close, "PADDING", "10x2")
+    niupc.SetAttribute(bt_close, "PADDING", "10x2")
 
-    box = niup.Vbox(
-      niup.Label("Find What:"),
+    box = niupc.Vbox(
+      niupc.Label("Find What:"),
       txt,
       find_case,
-      niup.SetAttributes(niup.Hbox(
-        niup.Fill(),
+      niupc.SetAttributes(niupc.Hbox(
+        niupc.Fill(),
         bt_next,
         bt_close,
         nil), "NORMALIZESIZE=HORIZONTAL"),
       nil);
-    niup.SetAttribute(box, "MARGIN", "10x10")
-    niup.SetAttribute(box, "GAP", "5")
+    niupc.SetAttribute(box, "MARGIN", "10x10")
+    niupc.SetAttribute(box, "GAP", "5")
 
-    dlg = niup.Dialog(box);
-    niup.SetAttribute(dlg, "TITLE", "Find")
-    niup.SetAttribute(dlg, "DIALOGFRAME", "Yes")
-    niup.SetAttributeHandle(dlg, "DEFAULTENTER", bt_next)
-    niup.SetAttributeHandle(dlg, "DEFAULTESC", bt_close)
-    niup.SetAttributeHandle(dlg, "PARENTDIALOG", niup.GetDialog(item_find))
+    dlg = niupc.Dialog(box);
+    niupc.SetAttribute(dlg, "TITLE", "Find")
+    niupc.SetAttribute(dlg, "DIALOGFRAME", "Yes")
+    niupc.SetAttributeHandle(dlg, "DEFAULTENTER", bt_next)
+    niupc.SetAttributeHandle(dlg, "DEFAULTESC", bt_close)
+    niupc.SetAttributeHandle(dlg, "PARENTDIALOG", niupc.GetDialog(item_find))
 
     # Save the multiline to acess it from the callbacks
-    niup.SetAttribute(dlg, "MULTITEXT", cast[cstring](multitext))
+    niupc.SetAttribute(dlg, "MULTITEXT", cast[cstring](multitext))
 
     # Save the dialog to reuse it
-    niup.SetAttribute(item_find, "FIND_DIALOG", cast[cstring](dlg))
+    niupc.SetAttribute(item_find, "FIND_DIALOG", cast[cstring](dlg))
 
   # centerparent first time, next time reuse the last position
   ShowXY(dlg, IUP_CURRENT, IUP_CURRENT)
 
-  return niup.IUP_DEFAULT
+  return niupc.IUP_DEFAULT
 
 proc item_font_action_cb(item_font:PIhandle): int =
-  let multitext = niup.GetDialogChild(item_font, "MULTITEXT")
-  let fontdlg = niup.FontDlg()
-  let font = niup.GetAttribute(multitext, "FONT")
-  niup.SetStrAttribute(fontdlg, "VALUE", font)
+  let multitext = niupc.GetDialogChild(item_font, "MULTITEXT")
+  let fontdlg = niupc.FontDlg()
+  let font = niupc.GetAttribute(multitext, "FONT")
+  niupc.SetStrAttribute(fontdlg, "VALUE", font)
   Popup(fontdlg, IUP_CENTER, IUP_CENTER)
 
-  if niup.GetInt(fontdlg, "STATUS") == 1:
-    let font = niup.GetAttribute(fontdlg, "VALUE")
-    niup.SetStrAttribute(multitext, "FONT", font)
+  if niupc.GetInt(fontdlg, "STATUS") == 1:
+    let font = niupc.GetAttribute(fontdlg, "VALUE")
+    niupc.SetStrAttribute(multitext, "FONT", font)
 
-  niup.Destroy(fontdlg)
-  return niup.IUP_DEFAULT
+  niupc.Destroy(fontdlg)
+  return niupc.IUP_DEFAULT
 
 proc item_about_action_cb(): int =
-  niup.Message("About", "   Simple Notepad\n\nAuthors:\n   Gustavo Lyrio\n   Antonio Scuri")
-  return niup.IUP_DEFAULT
+  niupc.Message("About", "   Simple Notepad\n\nAuthors:\n   Gustavo Lyrio\n   Antonio Scuri")
+  return niupc.IUP_DEFAULT
 
 proc item_exit_action_cb(ih:PIhandle):cint {.cdecl.}=
-  return niup.IUP_CLOSE
+  return niupc.IUP_CLOSE
 
 proc mainProc =
-  var dlg, vbox, multitext, menu: niup.PIhandle
-  var sub_menu_file, file_menu, item_exit, item_open, item_saveas: niup.PIhandle
-  var sub_menu_edit, edit_menu, item_find, item_goto: niup.PIhandle
-  var sub_menu_format, format_menu, item_font: niup.PIhandle
-  var sub_menu_help, help_menu, item_about: niup.PIhandle
+  var dlg, vbox, multitext, menu: niupc.PIhandle
+  var sub_menu_file, file_menu, item_exit, item_open, item_saveas: niupc.PIhandle
+  var sub_menu_edit, edit_menu, item_find, item_goto: niupc.PIhandle
+  var sub_menu_format, format_menu, item_font: niupc.PIhandle
+  var sub_menu_help, help_menu, item_about: niupc.PIhandle
 
   var argc:cint=0
   var argv:cstringArray=nil
   Open(argc, addr argv)
 
-  multitext =  niup.Text(nil)
-  niup.SetAttribute(multitext, "MULTILINE", "YES")
-  niup.SetAttribute(multitext, "EXPAND", "YES")
-  niup.SetAttribute(multitext, "NAME", "MULTITEXT");
+  multitext =  niupc.Text(nil)
+  niupc.SetAttribute(multitext, "MULTILINE", "YES")
+  niupc.SetAttribute(multitext, "EXPAND", "YES")
+  niupc.SetAttribute(multitext, "NAME", "MULTITEXT");
 
-  item_open = niup.Item("Open...", nil)
-  item_saveas = niup.Item("Save As...", nil)
-  item_exit = niup.Item("Exit", nil)
-  item_find = niup.Item("Find..", nil)
-  item_goto = niup.Item("Go To...", nil)
-  item_font= niup.Item("Font...", nil)
-  item_about= niup.Item("About...", nil)
+  item_open = niupc.Item("Open...", nil)
+  item_saveas = niupc.Item("Save As...", nil)
+  item_exit = niupc.Item("Exit", nil)
+  item_find = niupc.Item("Find..", nil)
+  item_goto = niupc.Item("Go To...", nil)
+  item_font= niupc.Item("Font...", nil)
+  item_about= niupc.Item("About...", nil)
 
   SetCallback(item_open, "ACTION", cast[ICallback](item_open_action_cb))
   SetCallback(item_saveas, "ACTION", cast[ICallback](item_saveas_action_cb))
@@ -314,47 +314,47 @@ proc mainProc =
   SetCallback(item_font, "ACTION", cast[ICallback](item_font_action_cb))
   SetCallback(item_about, "ACTION", cast[ICallback](item_about_action_cb))
 
-  file_menu = niup.Menu(item_open,
+  file_menu = niupc.Menu(item_open,
                        item_saveas,
-                       niup.Separator(),
+                       niupc.Separator(),
                        item_exit,
                        nil)
-  edit_menu = niup.Menu(item_find,
+  edit_menu = niupc.Menu(item_find,
                       item_goto,
                       nil)
-  format_menu = niup.Menu(item_font,
+  format_menu = niupc.Menu(item_font,
                          nil)
-  help_menu = niup.Menu(item_about,
+  help_menu = niupc.Menu(item_about,
                        nil)
 
-  sub_menu_file = niup.Submenu("File", file_menu)
-  sub_menu_edit = niup.Submenu("Edit", edit_menu)
-  sub_menu_format = niup.Submenu("Format", format_menu)
-  sub_menu_help = niup.Submenu("Help", help_menu)
+  sub_menu_file = niupc.Submenu("File", file_menu)
+  sub_menu_edit = niupc.Submenu("Edit", edit_menu)
+  sub_menu_format = niupc.Submenu("Format", format_menu)
+  sub_menu_help = niupc.Submenu("Help", help_menu)
 
-  menu = niup.Menu(sub_menu_file,
+  menu = niupc.Menu(sub_menu_file,
                   sub_menu_edit,
                   sub_menu_format,
                   sub_menu_help,
                   nil)
 
-  vbox = niup.Vbox(multitext,
+  vbox = niupc.Vbox(multitext,
                   nil)
 
-  dlg = niup.Dialog(vbox)
-  niup.SetAttributeHandle(dlg, "MENU", menu)
-  niup.SetAttribute(dlg, "TITLE", "Simple Notepad")
-  niup.SetAttribute(dlg, "SIZE", "HALFxHALF")
+  dlg = niupc.Dialog(vbox)
+  niupc.SetAttributeHandle(dlg, "MENU", menu)
+  niupc.SetAttribute(dlg, "TITLE", "Simple Notepad")
+  niupc.SetAttribute(dlg, "SIZE", "HALFxHALF")
 
   # parent for pre-defined dialogs in closed functions (IupMessage)
-  niup.SetAttributeHandle(nil, "PARENTDIALOG", dlg);
+  niupc.SetAttributeHandle(nil, "PARENTDIALOG", dlg);
 
-  ShowXY(dlg, niup.IUP_CENTERPARENT, niup.IUP_CENTERPARENT)
-  niup.SetAttribute(dlg, "USERSIZE", nil);
+  ShowXY(dlg, niupc.IUP_CENTERPARENT, niupc.IUP_CENTERPARENT)
+  niupc.SetAttribute(dlg, "USERSIZE", nil);
 
   MainLoop()
 
-  niup.Close()
+  niupc.Close()
 
 if isMainModule:
   mainProc()

@@ -15,10 +15,10 @@ proc mainProc =
   var argv:cstringArray=nil
   Open(argc, addr argv)
 
-  button = niup.Button("OK", nil)
-  vbox = niup.Vbox(button,
+  button = niupc.Button("OK", nil)
+  vbox = niupc.Vbox(button,
                   nil)
-  dlg = niup.Dialog(vbox)
+  dlg = niupc.Dialog(vbox)
   niup.SetAttribute(dlg, "TITLE", "Hello World 3")
 
   # Registers callbacks

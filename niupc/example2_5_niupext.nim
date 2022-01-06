@@ -1,7 +1,7 @@
 # https://www.tecgraf.puc-rio.br/iup/en/tutorial/tutorial2.html
 # https://www.tecgraf.puc-rio.br/iup/examples/tutorial/example2_5.c
-
 import niup
+import niup/niupc
 import niup/niupext
 
 proc btn_exit_cb(ih:PIhandle):cint {.cdecl.}=
@@ -12,9 +12,9 @@ proc mainProc =
   niup.Open()
 
   let
-    label =  Label("Hello world from IUP. (/w macros)")
-    button = Button("OK", nil)
-    vbox = Vbox(label, button, nil)
+    label =  niupc.Label("Hello world from IUP. (/w macros)")
+    button = niupc.Button("OK", nil)
+    vbox = niupc.Vbox(label, button, nil)
 
   withPIhandle(vbox):
     "ALIGNMENT" "ACENTER"
