@@ -77,21 +77,21 @@ proc new_file(ih:PIhandle) =
 proc open_file(ih:PIhandle, filename:string) =
   try:
     let str = readFile(filename)
-    if str.string != "":
+    if str != "":
       let
         dlg = GetDialog(ih)
         multitext = GetDialogChild(dlg, "MULTITEXT")
         config = GetAttributeAsPIhandle(multitext, "CONFIG")
 
-      SetfAttribute(dlg, "TITLE", "%s - Simple Notepad", os.extractFilename(filename))
+      SetfAttribute(dlg, "TITLE", "%s - Simple Notepad", cstring(os.extractFilename(filename)))
       withPIhandle multitext:
         "FILENAME" filename
         "DIRTY" "NO"
-        "VALUE" str
+        "VALUE" cstring(str)
 
       ConfigRecentUpdate(config, filename)
   except:
-    Message("Error", fmt"Fail when reading file: {filename}")
+    Message("Error", cstring(fmt"Fail when reading file: {filename}"))
 
 proc save_file(multitext:PIhandle):int =
   let
@@ -104,7 +104,7 @@ proc save_file(multitext:PIhandle):int =
       echo "missing filename!"
     SetAttribute(multitext, "DIRTY", "NO")
   except:
-    Message("Error", fmt"Fail when writing to file: {filename}")
+    Message("Error", cstring(fmt"Fail when writing to file: {filename}"))
 
 proc saveas_file(multitext:PIhandle, filename:string) =
   let str = GetAttribute(multitext, "VALUE")
@@ -112,14 +112,14 @@ proc saveas_file(multitext:PIhandle, filename:string) =
     writeFile(filename, $str)
     let config = GetAttributeAsPIhandle(multitext, "CONFIG")
 
-    SetfAttribute(GetDialog(multitext), "TITLE", "%s - Simple Notepad", os.extractFilename(filename))
+    SetfAttribute(GetDialog(multitext), "TITLE", "%s - Simple Notepad", cstring(os.extractFilename(filename)))
     withPIhandle multitext:
       "FILENAME" filename
       "DIRTY" "NO"
 
     ConfigRecentUpdate(config, filename)
   except:
-    Message("Error", fmt"Fail when writing to file: {filename}");
+    Message("Error", cstring(fmt"Fail when writing to file: {filename}"))
 
 proc save_check(ih:PIhandle):bool =
   let
@@ -497,7 +497,7 @@ proc find_close_action_cb(bt_close:PIhandle):int =
   ConfigDialogClosed(config, find_dlg, "FindDialog")
   Hide(find_dlg)  # do not destroy, just hide
 
-  return niup.IUP_DEFAULT
+  return IUP_DEFAULT
 
 proc create_find_dialog(multitext:PIhandle):PIhandle =
   var
@@ -713,15 +713,15 @@ proc item_about_action_cb(): int =
 
 proc create_main_dialog(config:PIhandle):PIhandle =
   var
-    dlg, vbox, multitext, menu: niup.PIhandle
-    sub_menu_file, file_menu, item_exit, item_new, item_open, item_save, item_saveas, item_revert: niup.PIhandle
-    sub_menu_edit, edit_menu, item_find, item_find_next, item_goto: niup.PIhandle
-    item_copy, item_paste, item_cut, item_delete, item_select_all:niup.PIhandle
-    btn_cut, btn_copy, btn_paste, btn_find, btn_new, btn_open, btn_save: niup.PIhandle
-    sub_menu_format, format_menu, item_font, item_replace: niup.PIhandle
-    sub_menu_help, help_menu, item_help, item_about: niup.PIhandle
+    dlg, vbox, multitext, menu: PIhandle
+    sub_menu_file, file_menu, item_exit, item_new, item_open, item_save, item_saveas, item_revert: PIhandle
+    sub_menu_edit, edit_menu, item_find, item_find_next, item_goto: PIhandle
+    item_copy, item_paste, item_cut, item_delete, item_select_all:PIhandle
+    btn_cut, btn_copy, btn_paste, btn_find, btn_new, btn_open, btn_save: PIhandle
+    sub_menu_format, format_menu, item_font, item_replace: PIhandle
+    sub_menu_help, help_menu, item_help, item_about: PIhandle
     sub_menu_view, view_menu, item_toolbar, item_statusbar: PIhandle
-    lbl_statusbar, toolbar_hb, recent_menu: niup.PIhandle
+    lbl_statusbar, toolbar_hb, recent_menu: PIhandle
 
   multitext =  Text(nil)
   withPIhandle(multitext):
@@ -998,7 +998,7 @@ proc create_main_dialog(config:PIhandle):PIhandle =
   return dlg
 
 proc mainProc =
-  niup.Open()
+  Open()
   ImageLibOpen()
 
   let config:PIhandle = Config()
