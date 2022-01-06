@@ -461,7 +461,7 @@ proc init_tree_nodes() =
     "ADDLEAF7" "diamond"
     "INSERTLEAF6" "2D"  #new id=9
     "INSERTBRANCH9" "3D"
-    "INSERTBRANCH10" u8
+    "INSERTBRANCH10" cstring(u8)
     "ADDLEAF11" "Depth 1"
     "ADDBRANCH12" "Folder"
     "ADDLEAF13" "Depth 2"

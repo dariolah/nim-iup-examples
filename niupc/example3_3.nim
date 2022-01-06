@@ -18,10 +18,10 @@ proc open_cb(): int =
     try:
       let str = readFile($filename) # $ converts cstring to string
       # .string converts TaintedString to string
-      if str.string != "":
-        niupc.SetStrAttribute(multitext, "VALUE", str.string)
+      if str != "":
+        niupc.SetStrAttribute(multitext, "VALUE", cstring(str))
     except:
-      niupc.Message("Error", fmt"Fail when reading from file: {filename}");
+      niupc.Message("Error", cstring(fmt"Fail when reading from file: {filename}"))
 
   niupc.Destroy(filedlg)
   return niupc.IUP_DEFAULT
@@ -39,7 +39,7 @@ proc saveas_cb(): int =
     try:
       writeFile($filename, $str)
     except:
-      niupc.Message("Error", fmt"Fail when writing to file: {filename}");
+      niupc.Message("Error", cstring(fmt"Fail when writing to file: {filename}"))
 
   niupc.Destroy(filedlg)
   return niupc.IUP_DEFAULT

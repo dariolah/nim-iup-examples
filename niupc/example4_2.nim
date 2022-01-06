@@ -3,7 +3,6 @@
 
 import niup/niupc
 import niup/niupext
-import strformat
 import unicode
 import os
 import strscans
@@ -76,7 +75,7 @@ proc show_file_error(error:imErrorCodes) =
 proc read_file(filename:string):ptr imImage =
   var
     error:imErrorCodes
-    image = imFileImageLoadBitmap($filename, 0, addr error)
+    image = imFileImageLoadBitmap(cstring(filename), 0, addr error)
   if error != IM_ERR_NONE:
     show_file_error(error)
   else:
@@ -143,7 +142,7 @@ proc open_file(ih:PIhandle, filename:string) =
       config = cast[PIhandle](GetAttribute(canvas, "CONFIG"))
       old_image = cast[ptr imImage](GetAttribute(canvas, "IMAGE"))
 
-    SetfAttribute(dlg, "TITLE", "%s - Simple Paint", os.extractFilename(filename))
+    SetfAttribute(dlg, "TITLE", "%s - Simple Paint", cstring(os.extractFilename(filename)))
     SetStrAttribute(canvas, "FILENAME", filename)
     SetAttribute(canvas, "DIRTY", "NO")
     SetAttribute(canvas, "IMAGE", cast[cstring](image))
@@ -175,7 +174,7 @@ proc set_file_format(image:ptr imImage, filename:string) =
     format = "TGA"
   elif ext.toLower() == ".tif" or ext.toLower() == ".tiff":
     format = "TIFF"
-  imImageSetAttribString(image, "FileFormat", format)
+  imImageSetAttribString(image, "FileFormat", cstring(format))
 
 proc saveas_file(canvas:PIhandle, filename:string) =
   let image = cast[ptr imImage](GetAttribute(canvas, "IMAGE"))
@@ -185,7 +184,7 @@ proc saveas_file(canvas:PIhandle, filename:string) =
   if write_file(filename, image):
     let config = cast[PIhandle](GetAttribute(canvas, "CONFIG"))
 
-    SetfAttribute(GetDialog(canvas), "TITLE", "%s - Simple Paint", os.extractFilename(filename))
+    SetfAttribute(GetDialog(canvas), "TITLE", "%s - Simple Paint", cstring(os.extractFilename(filename)))
     SetStrAttribute(canvas, "FILENAME", filename)
     SetAttribute(canvas, "DIRTY", "NO")
 

@@ -76,20 +76,20 @@ proc new_file(ih:PIhandle) =
 proc open_file(ih:PIhandle, filename:string) =
   try:
     let str = readFile(filename)
-    if str.string != "":
+    if str != "":
       let
         dlg = niupc.GetDialog(ih)
         multitext = niupc.GetDialogChild(dlg, "MULTITEXT")
         config = cast[PIhandle](niupc.GetAttribute(multitext, "CONFIG"))
 
-      niupc.SetfAttribute(dlg, "TITLE", "%s - Simple Notepad", os.extractFilename(filename))
+      niupc.SetfAttribute(dlg, "TITLE", "%s - Simple Notepad", cstring(os.extractFilename(filename)))
       niupc.SetStrAttribute(multitext, "FILENAME", filename)
       niupc.SetAttribute(multitext, "DIRTY", "NO")
-      niupc.SetStrAttribute(multitext, "VALUE", str)
+      niupc.SetStrAttribute(multitext, "VALUE", cstring(str))
 
       niupc.ConfigRecentUpdate(config, filename)
   except:
-    niupc.Message("Error", fmt"Fail when reading file: {filename}");
+    niupc.Message("Error", cstring(fmt"Fail when reading file: {filename}"))
 
 proc save_file(multitext:PIhandle):int =
   let
@@ -102,7 +102,7 @@ proc save_file(multitext:PIhandle):int =
       echo "missing filename!"
     niupc.SetAttribute(multitext, "DIRTY", "NO");
   except:
-    niupc.Message("Error", fmt"Fail when writing to file: {filename}");
+    niupc.Message("Error", cstring(fmt"Fail when writing to file: {filename}"))
 
 proc saveas_file(multitext:PIhandle, filename:string) =
   let str = niupc.GetAttribute(multitext, "VALUE")
@@ -110,13 +110,13 @@ proc saveas_file(multitext:PIhandle, filename:string) =
     writeFile(filename, $str)
     let config = cast[PIhandle](niupc.GetAttribute(multitext, "CONFIG"))
 
-    niupc.SetfAttribute(niupc.GetDialog(multitext), "TITLE", "%s - Simple Notepad", os.extractFilename(filename));
+    niupc.SetfAttribute(niupc.GetDialog(multitext), "TITLE", "%s - Simple Notepad", cstring(os.extractFilename(filename)))
     niupc.SetStrAttribute(multitext, "FILENAME", filename);
     niupc.SetAttribute(multitext, "DIRTY", "NO");
 
     niupc.ConfigRecentUpdate(config, filename)
   except:
-    niupc.Message("Error", fmt"Fail when writing to file: {filename}");
+    niupc.Message("Error", cstring(fmt"Fail when writing to file: {filename}"))
 
 proc save_check(ih:PIhandle):bool =
   let

@@ -65,9 +65,9 @@ proc str_find(str:string, str_to_find:string, casesensitive:int): int =
 proc config_recent_cb(ih:PIhandle): int =
   let filename = niupc.GetAttribute(ih, "RECENTFILENAME")
   let str = readFile($filename)
-  if str.string != "":
+  if str != "":
     let multitext = niupc.GetDialogChild(ih, "MULTITEXT")
-    niupc.SetStrAttribute(multitext, "VALUE", str)
+    niupc.SetStrAttribute(multitext, "VALUE", cstring(str))
 
   return IUP_DEFAULT
 
@@ -90,12 +90,12 @@ proc item_open_action_cb(item_open:PIhandle): int =
     try:
       let str = readFile($filename) # $ converts cstring to string
       # .string converts TaintedString to string
-      if str.string != "":
+      if str != "":
         let config = cast[PIhandle](niupc.GetAttribute(multitext, "CONFIG"))
         niupc.ConfigRecentUpdate(config, filename)
-        niupc.SetStrAttribute(multitext, "VALUE", str.string)
+        niupc.SetStrAttribute(multitext, "VALUE", cstring(str))
     except:
-      niupc.Message("Error", fmt"Fail when reading from file: {filename}");
+      niupc.Message("Error", cstring(fmt"Fail when reading from file: {filename}"))
 
   niupc.Destroy(filedlg)
   return niupc.IUP_DEFAULT
@@ -117,7 +117,7 @@ proc item_saveas_action_cb(item_saveas:PIhandle): int =
       writeFile($filename, $str)
       niupc.ConfigRecentUpdate(config, filename)
     except:
-      niupc.Message("Error", fmt"Fail when writing to file: {filename}");
+      niupc.Message("Error", cstring(fmt"Fail when writing to file: {filename}"))
 
   niupc.Destroy(filedlg)
   return niupc.IUP_DEFAULT

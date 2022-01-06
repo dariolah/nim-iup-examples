@@ -46,7 +46,7 @@ proc copyMarkedLines(multitext:PIHandle) =
 
   if buffer.len > 0:
     let clipboard = niupc.Clipboard()
-    niupc.SetAttribute(clipboard, "TEXT", buffer)
+    niupc.SetAttribute(clipboard, "TEXT", cstring(buffer))
     niupc.Destroy(clipboard)
 
 proc cutMarkedLines(multitext:PIhandle) =
@@ -73,7 +73,7 @@ proc cutMarkedLines(multitext:PIhandle) =
 
   if buffer.len > 0:
     let clipboard = niupc.Clipboard()
-    niupc.SetAttribute(clipboard, "TEXT", buffer)
+    niupc.SetAttribute(clipboard, "TEXT", cstring(buffer))
     niupc.Destroy(clipboard)
 
 proc pasteToMarkedLines(multitext:PIhandle) =
@@ -364,20 +364,20 @@ proc new_file(ih:PIhandle) =
 proc open_file(ih:PIhandle, filename:string) =
   try:
     let str = readFile(filename)
-    if str.string != "":
+    if str != "":
       let
         dlg = niupc.GetDialog(ih)
         multitext = niupc.GetDialogChild(dlg, "MULTITEXT")
         config = cast[PIhandle](niupc.GetAttribute(multitext, "CONFIG"))
 
-      niupc.SetfAttribute(dlg, "TITLE", "%s - Scintilla Notepad", os.extractFilename(filename))
+      niupc.SetfAttribute(dlg, "TITLE", "%s - Scintilla Notepad", cstring(os.extractFilename(filename)))
       niupc.SetStrAttribute(multitext, "FILENAME", filename)
       niupc.SetAttribute(multitext, "DIRTY", "NO")
-      niupc.SetStrAttribute(multitext, "VALUE", str)
+      niupc.SetStrAttribute(multitext, "VALUE", cstring(str))
 
       niupc.ConfigRecentUpdate(config, filename)
   except:
-    niupc.Message("Error", fmt"Fail when reading file: {filename}");
+    niupc.Message("Error", cstring(fmt"Fail when reading file: {filename}"))
 
 proc save_file(multitext:PIhandle):int =
   let
@@ -390,7 +390,7 @@ proc save_file(multitext:PIhandle):int =
       echo "missing filename!"
     niupc.SetAttribute(multitext, "DIRTY", "NO");
   except:
-    niupc.Message("Error", fmt"Fail when writing to file: {filename}");
+    niupc.Message("Error", cstring(fmt"Fail when writing to file: {filename}"))
 
 proc saveas_file(multitext:PIhandle, filename:string) =
   let str = niupc.GetAttribute(multitext, "VALUE")
@@ -398,13 +398,13 @@ proc saveas_file(multitext:PIhandle, filename:string) =
     writeFile(filename, $str)
     let config = cast[PIhandle](niupc.GetAttribute(multitext, "CONFIG"))
 
-    niupc.SetfAttribute(niupc.GetDialog(multitext), "TITLE", "%s - Scintilla Notepad", os.extractFilename(filename));
+    niupc.SetfAttribute(niupc.GetDialog(multitext), "TITLE", "%s - Scintilla Notepad", cstring(os.extractFilename(filename)))
     niupc.SetStrAttribute(multitext, "FILENAME", filename);
     niupc.SetAttribute(multitext, "DIRTY", "NO");
 
     niupc.ConfigRecentUpdate(config, filename)
   except:
-    niupc.Message("Error", fmt"Fail when writing to file: {filename}");
+    niupc.Message("Error", cstring(fmt"Fail when writing to file: {filename}"))
 
 proc save_check(ih:PIhandle):bool =
   let
@@ -1184,7 +1184,7 @@ proc item_uppercase_action_cb(item:PIhandle):int =
   GetIntInt(multitext, "SELECTIONPOS", start, tEnd)
   var text = niupc.GetAttribute(multitext, "SELECTEDTEXT");
   var text2 = unicode.toUpper($text)
-  niupc.SetAttribute(multitext, "SELECTEDTEXT", text2)
+  niupc.SetAttribute(multitext, "SELECTEDTEXT", cstring(text2))
   niupc.SetStrf(multitext, "SELECTIONPOS", "%d:%d", start, tEnd);
 
   return niupc.IUP_DEFAULT
@@ -1196,7 +1196,7 @@ proc item_lowercase_action_cb(item:PIhandle):int =
   GetIntInt(multitext, "SELECTIONPOS", start, tEnd)
   var text = niupc.GetAttribute(multitext, "SELECTEDTEXT")
   var text2 = unicode.toLower($text)
-  niupc.SetAttribute(multitext, "SELECTEDTEXT", text2)
+  niupc.SetAttribute(multitext, "SELECTEDTEXT", cstring(text2))
   niupc.SetStrf(multitext, "SELECTIONPOS", "%d:%d", start, tEnd)
 
   return niupc.IUP_DEFAULT

@@ -1,6 +1,5 @@
 import niup
 import niup/niupc
-import niup/niupext
 import strformat
 proc mainProc =
   niup.Open()
@@ -20,7 +19,7 @@ proc mainProc =
   let multitext = Text(nil)
   SetAttribute(multitext, "MULTILINE", "YES")
   SetAttribute(multitext, "EXPAND", "YES")
-  SetAttribute(multitext, "VALUE", msg)
+  SetAttribute(multitext, "VALUE", cstring(msg))
 
   let dlg = Dialog(Vbox(multitext,nil))
   SetAttribute(dlg, "TITLE", "Version")

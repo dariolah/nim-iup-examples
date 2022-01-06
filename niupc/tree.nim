@@ -98,7 +98,7 @@ proc rightclick_cb(h:PIhandle, id:int):int =
   discard SetFunction("removenode", cast[Icallback](removenode))
   discard SetFunction("renamenode", cast[Icallback](renamenode))
 
-  SetAttribute(h, "VALUE", $id)
+  SetAttribute(h, "VALUE", cstring($id))
   Popup(popup_menu,IUP_MOUSEPOS, IUP_MOUSEPOS)
 
   Destroy(popup_menu)

@@ -1,7 +1,6 @@
 import niup/niupc
 import niup/niupext
 import strformat
-import unicode
 
 const TEST_IMAGE_SIZE=20
 
