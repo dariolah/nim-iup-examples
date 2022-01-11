@@ -1,47 +1,53 @@
-EXAMPLES=\
-	example2_1.nim \
-	example2_2.nim \
-	example2_3.nim \
-	example2_4.nim \
-	example2_5.nim \
-	example2_5_niupext.nim \
-	example3_10.nim \
-	example3_11.nim \
-	example3_1.nim \
-	example3_2.nim \
-	example3_3.nim \
-	example3_4.nim \
-	example3_5.nim \
-	example3_6.nim \
-	example3_7.nim \
-	example3_8.nim \
-	example3_9.nim \
-        simple_notepad.nim \
-	simple_notepad_niupext.nim \
-        scintilla_notepad.nim \
-	example4_1.nim \
-	example4_2.nim \
-	example4_3.nim \
-	example4_4.nim \
-	list1.nim \
-	list2.nim \
-	list3.nim \
-	matrixlist.nim \
-	matrix.nim \
-	tree.nim \
-	flattree.nim \
-	webbrowser.nim \
+TARGETS=\
+	example2_1 \
+	example2_2 \
+	example2_3 \
+	example2_4 \
+	example2_5 \
+	example2_5_niupext \
+	example3_10 \
+	example3_11 \
+	example3_1 \
+	example3_2 \
+	example3_3 \
+	example3_4 \
+	example3_5 \
+	example3_6 \
+	example3_7 \
+	example3_8 \
+	example3_9 \
+        simple_notepad \
+	simple_notepad_niupext \
+        scintilla_notepad \
+	example4_1 \
+	example4_2 \
+	example4_3 \
+	example4_4 \
+	list1 \
+	list2 \
+	list3 \
+	matrixlist \
+	matrix \
+	tree \
+	flattree \
+	webbrowser \
 	plot \
 	version
 
+OUTDIR=/mnt/ssd/tmp/build-nim-iup-examples-nim-Debug/niupc
+NIMCOPT=--gc:orc -d:release --debugInfo --lineDir:on
 
-TARGETS=$(EXAMPLES:.nim=)
+OBJS:=$(addprefix $(OUTDIR)/,$(TARGETS))
 
-all: $(TARGETS)
+all: $(OBJS)
 
-%: %.nim
-	nim c --debugInfo --lineDir:on --out:../build-nim-iup-examples-nim-Debug/$@ --nimCache:../build-nim-iup-examples-nim-Debug/nimcache --gc:orc $^
-	#nim c --cpu:amd64 --os:windows --gcc.exe:x86_64-w64-mingw32-gcc --gcc.linkerexe:x86_64-w64-mingw32-gcc --out:../build-nim-iup-examples-nim-Debug/$@.exe --nimCache:../build-nim-iup-examples-nim-Debug/nimcache --gc:orc $^
-
+$(OUTDIR)/%: %.nim
+	nim c $(NIMCOPT) --out:$@ $^
+	#nim c --cpu:amd64 --os:windows --gcc.exe:x86_64-w64-mingw32-gcc --gcc.linkerexe:x86_64-w64-mingw32-gcc --out:$@.exe $(NIMCOPT) $^
+	echo
+	
 clean:
-	rm -rf ../build-nim-iup-examples-nim-Debug/
+	rm -rf $(OUTDIR)
+
+
+
