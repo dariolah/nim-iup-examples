@@ -22,9 +22,14 @@ proc Main() =
   let quit_bt = Button("Quit")
   quit_bt.action = quit_cb
 
+  let flabel = FlatLabel("Very Long Text Label")
+  # SetAttributes returns PIhandle, if used inline, as nested call,
+  #   it will have to ba casted to FlatLabel_t or similar NIUP type
+  SetAttributes(flabel, "EXPAND=YES, ALIGNMENT=ACENTER, FONTSIZE=24")
+
   #/* the container with a label and the button */
   let vbox = Vbox(
-               SetAttributes(FlatLabel("Very Long Text Label"), "EXPAND=YES, ALIGNMENT=ACENTER, FONTSIZE=24"),
+               flabel,
                quit_bt)
   vbox.alignment = "ACENTER"
   vbox.margin(200, 200)
