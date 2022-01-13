@@ -1,15 +1,14 @@
 # https://www.tecgraf.puc-rio.br/iup/en/tutorial/tutorial2.html
 # https://www.tecgraf.puc-rio.br/iup/examples/tutorial/example2_5.c
-import niup
 import niup/niupc
 import niup/niupext
 
 proc btn_exit_cb(ih:PIhandle):cint {.cdecl.}=
   # Exits the main loop
-  return niup.IUP_CLOSE
+  return IUP_CLOSE
 
 proc mainProc =
-  niup.Open()
+  Open()
 
   let
     label =  niupc.Label("Hello world from IUP. (/w macros)")
@@ -33,7 +32,7 @@ proc mainProc =
 
   MainLoop()
 
-  niup.Close()
+  Close()
 
 if isMainModule:
   mainProc()

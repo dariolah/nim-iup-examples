@@ -1,8 +1,8 @@
-import niup
+import niup/niupext
 import niup/niupc
 import strformat
 proc mainProc =
-  niup.Open()
+  Open()
 
   let
     ver = Version()

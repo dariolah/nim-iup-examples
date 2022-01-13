@@ -1,4 +1,3 @@
-import niup
 import niup/niupc
 import niup/niupext
 import strformat
@@ -20,7 +19,7 @@ proc listaction_cb(self:PIhandle, item:int, state:int):int =
   return IUP_DEFAULT
 
 proc mainProc =
-  niup.Open()
+  Open()
   ControlsOpen()
 
   let mlist = MatrixList()

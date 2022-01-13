@@ -1,14 +1,14 @@
 # https://www.tecgraf.puc-rio.br/iup/en/tutorial/tutorial3.html
 # https://www.tecgraf.puc-rio.br/iup/examples/tutorial/example3_2.c
-import niup
+import niup/niupc
 
 proc exit_cb(ih:PIhandle):cint {.cdecl.}=
-  return niup.IUP_CLOSE
+  return IUP_CLOSE
 
 proc mainProc =
-  var dlg, multitext, vbox: niup.PIhandle
-  var file_menu, item_exit, item_open, item_saveas: niup.PIhandle
-  var sub1_menu, menu: niup.PIhandle
+  var dlg, multitext, vbox: PIhandle
+  var file_menu, item_exit, item_open, item_saveas: PIhandle
+  var sub1_menu, menu: PIhandle
 
   var argc:cint=0
   var argv:cstringArray=nil
@@ -41,12 +41,12 @@ proc mainProc =
   niupc.SetAttribute(dlg, "TITLE", "Simple Notepad")
   niupc.SetAttribute(dlg, "SIZE", "QUARTERxQUARTER");
 
-  ShowXY(dlg, niup.IUP_CENTER, niup.IUP_CENTER)
+  ShowXY(dlg, IUP_CENTER, IUP_CENTER)
   niupc.SetAttribute(dlg, "USERSIZE", nil);
 
   MainLoop()
 
-  niup.Close()
+  Close()
 
 if isMainModule:
   mainProc()

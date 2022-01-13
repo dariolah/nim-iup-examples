@@ -1,14 +1,14 @@
 # https://www.tecgraf.puc-rio.br/iup/en/tutorial/tutorial2.html
 # https://www.tecgraf.puc-rio.br/iup/examples/tutorial/example2_4.c
 
-import niup
+import niup/niupc
 
 proc btn_exit_cb(ih:PIhandle):cint {.cdecl.}=
   # Exits the main loop
-  return niup.IUP_CLOSE
+  return IUP_CLOSE
 
 proc mainProc =
-  var dlg, button, label, vbox: niup.PIhandle
+  var dlg, button, label, vbox: PIhandle
 
   var argc:cint=0
   var argv:cstringArray=nil
@@ -20,16 +20,16 @@ proc mainProc =
                   button,
                   nil)
   dlg = niupc.Dialog(vbox)
-  niup.SetAttribute(dlg, "TITLE", "Hello World 4")
+  SetAttribute(dlg, "TITLE", "Hello World 4")
 
   # Registers callbacks
   SetCallback(button, "ACTION", cast[ICallback](btn_exit_cb))
 
-  ShowXY(dlg, niup.IUP_CENTER, niup.IUP_CENTER)
+  ShowXY(dlg, IUP_CENTER, IUP_CENTER)
 
   MainLoop()
 
-  niup.Close()
+  Close()
 
 if isMainModule:
   mainProc()

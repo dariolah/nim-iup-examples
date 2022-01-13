@@ -1,31 +1,31 @@
 # https://www.tecgraf.puc-rio.br/iup/en/tutorial/tutorial3.html
 # https://www.tecgraf.puc-rio.br/iup/examples/tutorial/example3_1.c
 
-import niup
+import niup/niupc
 
 proc mainProc =
-  var dlg, multitext, vbox: niup.PIhandle
+  var dlg, multitext, vbox: PIhandle
 
   var argc:cint=0
   var argv:cstringArray=nil
   Open(argc, addr argv)
 
-  multitext =  niup.Text(nil);
-  vbox = niup.Vbox(multitext,
+  multitext =  Text(nil);
+  vbox = Vbox(multitext,
                   nil)
-  niup.SetAttribute(multitext, "MULTILINE", "YES")
-  niup.SetAttribute(multitext, "EXPAND", "YES")
+  SetAttribute(multitext, "MULTILINE", "YES")
+  SetAttribute(multitext, "EXPAND", "YES")
 
   dlg = niupc.Dialog(vbox)
   niupc.SetAttribute(dlg, "TITLE", "Simple Notepad")
   niupc.SetAttribute(dlg, "SIZE", "QUARTERxQUARTER");
 
-  ShowXY(dlg, niup.IUP_CENTER, niup.IUP_CENTER)
+  ShowXY(dlg, IUP_CENTER, IUP_CENTER)
   niupc.SetAttribute(dlg, "USERSIZE", nil);
 
   MainLoop()
 
-  niup.Close()
+  Close()
 
 if isMainModule:
   mainProc()

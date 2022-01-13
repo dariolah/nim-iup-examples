@@ -1,4 +1,3 @@
-import niup
 import niup/niupc
 import niup/niupext
 import strformat
@@ -135,7 +134,7 @@ proc MatrixTest() =
   ShowXY(dlg, IUP_CENTER, IUP_CENTER)
 
 proc mainProc =
-  niup.Open()
+  Open()
   ControlsOpen()
   ImageLibOpen()
 
